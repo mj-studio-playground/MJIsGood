@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#397be6</color>
+    <color name="colorPrimary70">#B3397be6</color>
+    <color name="colorPrimary50">#80397be6</color>
+    <color name="colorPrimary30">#4D397be6</color>
+    <color name="colorPrimary15">#26397be6</color>
+    <color name="colorPrimaryVariant">#073175</color>
+    <color name="colorPrimaryVariant70">#B3073175</color>
+    <color name="colorPrimaryVariant50">#80073175</color>
+    <color name="colorPrimaryVariant30">#4D073175</color>
+    <color name="colorPrimaryVariant15">#26073175</color>
+    <color name="colorSecondary">#56aeb8</color>
+    <color name="colorSecondary70">#B356aeb8</color>
+    <color name="colorSecondary50">#8056aeb8</color>
+    <color name="colorSecondary30">#4D56aeb8</color>
+    <color name="colorSecondary15">#2656aeb8</color>
+    <color name="colorSecondaryVariant">#426e96</color>
+    <color name="colorSecondaryVariant70">#B3426e96</color>
+    <color name="colorSecondaryVariant50">#80426e96</color>
+    <color name="colorSecondaryVariant30">#4D426e96</color>
+    <color name="colorSecondaryVariant15">#26426e96</color>
+    <color name="colorPrimaryDark">#172742</color>
+    <color name="colorPrimaryDark70">#B3172742</color>
+    <color name="colorPrimaryDark50">#80172742</color>
+    <color name="colorPrimaryDark30">#4D172742</color>
+    <color name="colorPrimaryDark15">#26172742</color>
+
+    <color name="colorError">#db2212</color>
+    <color name="colorError70">#B3db2212</color>
+    <color name="colorError50">#80db2212</color>
+    <color name="colorError30">#4Ddb2212</color>
+    <color name="colorError15">#26db2212</color>
+
+    <color name="colorOnPrimary">#FFFFFF</color>
+    <color name="colorOnSecondary">#FFFFFF</color>
+    <color name="colorOnError">#FFFFFF</color>
+
+    <color name="colorBackground">#000000</color>
+    <color name="colorSurface">#222222</color>
+
+    <color name="colorOnBackground">#EAEAEA</color>
+    <color name="colorOnBackground70">#b3EAEAEA</color>
+    <color name="colorOnBackground50">#80EAEAEA</color>
+    <color name="colorOnBackground30">#4DEAEAEA</color>
+    <color name="colorOnBackground15">#26EAEAEA</color>
+    <color name="colorOnSurface">#EAEAEA</color>
+    <color name="colorOnSurface70">#B3EAEAEA</color>
+    <color name="colorOnSurface50">#80EAEAEA</color>
+    <color name="colorOnSurface30">#4DEAEAEA</color>
+    <color name="colorOnSurface15">#26EAEAEA</color>
+</resources>

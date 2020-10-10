@@ -1,0 +1,43 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- region Color Theme -->
+
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorSecondary">@color/colorSecondary</item>
+        <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorSecondary</item>
+        <item name="colorError">@color/colorError</item>
+
+        <item name="colorOnBackground">@color/colorOnBackground</item>
+        <item name="colorOnSurface">@color/colorOnSurface</item>
+        <item name="colorOnPrimary">@color/colorOnPrimary</item>
+        <item name="colorOnSecondary">@color/colorOnSecondary</item>
+        <item name="colorOnError">@color/colorOnError</item>
+
+        <item name="android:colorBackground">@color/colorBackground</item>
+        <item name="colorSurface">@color/colorSurface</item>
+
+        <item name="android:textColor">@color/colorOnSurface</item>
+
+        <!-- endregion -->
+
+        <item name="android:includeFontPadding">false</item>
+
+        <item name="android:windowTranslucentStatus">true</item>
+
+        <item name="snackbarStyle">@style/AppTheme.Snackbar</item>
+    </style>
+
+    <style name="AppTheme.Splash">
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <style name="AppTheme.Snackbar" parent="@style/Widget.MaterialComponents.Snackbar.FullWidth">
+        <item name="android:layout_marginBottom">160dp</item>
+    </style>
+
+    <style name="Estrella" />
+
+</resources>
