@@ -6,17 +6,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.transition.MaterialElevationScale
 import dagger.hilt.android.AndroidEntryPoint
 import happy.mjstudio.sopt27.databinding.FragmentMainBinding
 import happy.mjstudio.sopt27.utils.AutoClearedValue
+import happy.mjstudio.sopt27.utils.PrefSettingsManager
+import happy.mjstudio.sopt27.utils.showToast
+import kotlinx.coroutines.flow.first
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainFragment : Fragment() {
-
     private var mBinding: FragmentMainBinding by AutoClearedValue()
+
+    private var checkAutoSignIn = false
+
+    @Inject
+    lateinit var settingManager: PrefSettingsManager
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
         FragmentMainBinding.inflate(inflater, container, false).also {
@@ -26,10 +35,24 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         mBinding.lifecycleOwner = viewLifecycleOwner
 
+        checkLastSignInInfo()
         observeArgs()
         setOnDetailButtonClickListener()
         setOnSignUpButtonClickListener()
         startLogoPulseAnim()
+    }
+
+    private fun checkLastSignInInfo() {
+        if (checkAutoSignIn) return
+
+        lifecycleScope.launchWhenCreated {
+            val info = settingManager.lastSignInInfo.first()
+            if (info.id.isNotBlank() && info.pw.isNotBlank()) {
+                showToast("Auto sign-in success 🚀")
+                navigateDetail()
+            }
+            checkAutoSignIn = true
+        }
     }
 
     private fun observeArgs() {

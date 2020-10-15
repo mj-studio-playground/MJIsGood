@@ -31,9 +31,9 @@ class DetailFragment : Fragment() {
 
     private fun setTransition() {
         sharedElementEnterTransition = MaterialContainerTransform().apply {
-            duration = 300L
+            duration = 500L
             scrimColor = Color.TRANSPARENT
-            setAllContainerColors(requireContext().getColor(R.color.colorBackground))
+            setAllContainerColors(requireContext().getColor(R.color.colorTransparent))
         }
     }
 
