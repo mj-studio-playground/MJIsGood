@@ -5,13 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.transition.MaterialElevationScale
 import dagger.hilt.android.AndroidEntryPoint
-import happy.mjstudio.sopt27.R
 import happy.mjstudio.sopt27.databinding.FragmentMainBinding
 import happy.mjstudio.sopt27.utils.AutoClearedValue
 
@@ -28,16 +26,24 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         mBinding.lifecycleOwner = viewLifecycleOwner
 
-        setOnButtonClickListener()
+        observeArgs()
+        setOnDetailButtonClickListener()
+        setOnSignUpButtonClickListener()
         startLogoPulseAnim()
     }
 
-    private fun setOnButtonClickListener() = mBinding.button.setOnClickListener { navigateDetail() }
+    private fun observeArgs() {
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String>("id")
+            ?.observe(viewLifecycleOwner) {
+                mBinding.id.setText(it)
+            }
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String>("pw")
+            ?.observe(viewLifecycleOwner) {
+                mBinding.pw.setText(it)
+            }
+    }
 
-    private fun showToast() =
-        Toast.makeText(requireContext(), "반갑습니다. ${mBinding.id.text}님", Toast.LENGTH_SHORT).apply {
-            view.setBackgroundColor(requireContext().getColor(R.color.colorPrimary))
-        }.show()
+    private fun setOnDetailButtonClickListener() = mBinding.button.setOnClickListener { navigateDetail() }
 
     private fun navigateDetail() {
         reenterTransition = MaterialElevationScale(true).apply {
@@ -49,6 +55,24 @@ class MainFragment : Fragment() {
 
         val extras = FragmentNavigatorExtras(mBinding.title to "title")
         findNavController().navigate(MainFragmentDirections.actionMainFragmentToDetailFragment(), extras)
+    }
+
+    private fun setOnSignUpButtonClickListener() = mBinding.signUp.setOnClickListener { navigateSignUp() }
+
+    private fun navigateSignUp() {
+        reenterTransition = MaterialElevationScale(true).apply {
+            duration = 300L
+        }
+        exitTransition = MaterialElevationScale(true).apply {
+            duration = 300L
+        }
+
+        val extras = FragmentNavigatorExtras(mBinding.signUp to "signup")
+        findNavController().navigate(
+            MainFragmentDirections.actionMainFragmentToSignUpFragment(
+                mBinding.id.text?.toString() ?: "", mBinding.pw.text?.toString() ?: ""
+            ), extras
+        )
     }
 
     private fun startLogoPulseAnim() {

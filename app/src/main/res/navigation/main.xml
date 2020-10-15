@@ -13,9 +13,23 @@
         <action
             android:id="@+id/action_mainFragment_to_detailFragment"
             app:destination="@id/detailFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
         android:name="happy.mjstudio.sopt27.presentation.DetailFragment"
         android:label="DetailFragment" />
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="happy.mjstudio.sopt27.presentation.SignUpFragment"
+        android:label="SignUpFragment" >
+        <argument
+            android:name="id"
+            app:argType="string" />
+        <argument
+            android:name="pw"
+            app:argType="string" />
+    </fragment>
 </navigation>
