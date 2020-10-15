@@ -68,12 +68,12 @@ class MainFragment : Fragment() {
     }
 
     private fun observeArgs() {
-        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String>("id")
-            ?.observe(viewLifecycleOwner) {
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData("id", "")
+            ?.observe<String>(viewLifecycleOwner) {
                 mBinding.id.setText(it)
             }
-        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String>("pw")
-            ?.observe(viewLifecycleOwner) {
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData("pw", "")
+            ?.observe<String>(viewLifecycleOwner) {
                 mBinding.pw.setText(it)
             }
     }
