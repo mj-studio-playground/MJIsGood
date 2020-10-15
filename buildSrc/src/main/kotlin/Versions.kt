@@ -1,6 +1,5 @@
 object Versions {
-    const val androidGradle = "4.0.1"
-    const val kotlin = "1.4.0"
+    const val kotlin = "1.4.10"
 
     const val gmsPlugin = "4.3.3"
     const val crashlyticsPlugin = "2.2.1"

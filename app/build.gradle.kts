@@ -19,7 +19,6 @@ fun com.android.build.gradle.internal.dsl.DefaultConfig.setDefault() {
 
 android {
     compileSdkVersion(Constants.compileSdk)
-    buildToolsVersion(Constants.buildToolVersion)
 
     defaultConfig {
         setDefault()
@@ -57,7 +56,7 @@ android {
 
     externalNativeBuild {
         cmake {
-            setPath("src/main/jni/CMakeLists.txt")
+            path("src/main/jni/CMakeLists.txt")
         }
     }
 
