@@ -60,6 +60,17 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
+            android:id="@+id/switchTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:text="테마변경"
+            android:transitionName="signup"
+            app:layout_constraintBottom_toBottomOf="@id/button"
+            app:layout_constraintEnd_toStartOf="@id/signUp"
+            app:layout_constraintTop_toTopOf="@id/button" />
+
+        <Button
             android:id="@+id/signUp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

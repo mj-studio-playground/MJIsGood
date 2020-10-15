@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.FragmentNavigatorExtras
@@ -37,11 +38,19 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         mBinding.lifecycleOwner = viewLifecycleOwner
 
+        handleSavedInstanceState(savedInstanceState)
         checkLastSignInInfo()
         observeArgs()
+        setOnThemeButtonClickListener()
         setOnDetailButtonClickListener()
         setOnSignUpButtonClickListener()
         startLogoPulseAnim()
+    }
+
+    private fun handleSavedInstanceState(savedInstanceState: Bundle?) {
+        savedInstanceState?.run {
+            checkAutoSignIn = getBoolean("checkAutoSignIn")
+        }
     }
 
     private fun checkLastSignInInfo() {
@@ -66,6 +75,11 @@ class MainFragment : Fragment() {
             ?.observe(viewLifecycleOwner) {
                 mBinding.pw.setText(it)
             }
+    }
+
+    private fun setOnThemeButtonClickListener() = mBinding.switchTheme.setOnClickListener {
+        val nightMode = AppCompatDelegate.getDefaultNightMode()
+        AppCompatDelegate.setDefaultNightMode(if (nightMode == AppCompatDelegate.MODE_NIGHT_YES) AppCompatDelegate.MODE_NIGHT_NO else AppCompatDelegate.MODE_NIGHT_YES)
     }
 
     private fun setOnDetailButtonClickListener() = mBinding.button.setOnClickListener {
@@ -102,11 +116,10 @@ class MainFragment : Fragment() {
             duration = 300L
         }
 
-        val extras = FragmentNavigatorExtras(mBinding.signUp to "signup")
         findNavController().navigate(
             MainFragmentDirections.actionMainFragmentToSignUpFragment(
                 mBinding.id.text?.toString() ?: "", mBinding.pw.text?.toString() ?: ""
-            ), extras
+            )
         )
     }
 
@@ -125,4 +138,9 @@ class MainFragment : Fragment() {
         }
 
     private suspend fun getLastSignInInfo(): LastSignInInfo = settingManager.lastSignInInfo.first()
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putBoolean("checkAutoSignIn", true)
+    }
 }

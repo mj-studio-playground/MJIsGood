@@ -1,6 +1,5 @@
 package happy.mjstudio.sopt27.presentation
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,13 +9,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.google.android.material.transition.MaterialContainerTransform
+import com.google.android.material.transition.MaterialElevationScale
 import dagger.hilt.android.AndroidEntryPoint
-import happy.mjstudio.sopt27.R
 import happy.mjstudio.sopt27.databinding.FragmentSignUpBinding
 import happy.mjstudio.sopt27.utils.AutoClearedValue
 import happy.mjstudio.sopt27.utils.PrefSettingsManager
-import happy.mjstudio.sopt27.utils.logE
 import happy.mjstudio.sopt27.utils.showToast
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -55,15 +52,14 @@ class SignUpFragment : Fragment() {
         setTransition()
 
         setOnSignUpButtonListener()
-
-        logE(settingManager)
     }
 
     private fun setTransition() {
-        sharedElementEnterTransition = MaterialContainerTransform().apply {
+        enterTransition = MaterialElevationScale(true).apply {
             duration = 300L
-            scrimColor = Color.TRANSPARENT
-            setAllContainerColors(requireContext().getColor(R.color.colorBackground))
+        }
+        returnTransition = MaterialElevationScale(true).apply {
+            duration = 300L
         }
     }
 
