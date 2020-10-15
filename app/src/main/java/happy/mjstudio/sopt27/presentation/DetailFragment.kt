@@ -36,5 +36,4 @@ class DetailFragment : Fragment() {
             setAllContainerColors(requireContext().getColor(R.color.colorTransparent))
         }
     }
-
 }

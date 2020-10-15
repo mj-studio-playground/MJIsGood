@@ -13,9 +13,11 @@ import com.google.android.material.transition.MaterialElevationScale
 import dagger.hilt.android.AndroidEntryPoint
 import happy.mjstudio.sopt27.databinding.FragmentMainBinding
 import happy.mjstudio.sopt27.utils.AutoClearedValue
+import happy.mjstudio.sopt27.utils.LastSignInInfo
 import happy.mjstudio.sopt27.utils.PrefSettingsManager
 import happy.mjstudio.sopt27.utils.showToast
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -66,7 +68,17 @@ class MainFragment : Fragment() {
             }
     }
 
-    private fun setOnDetailButtonClickListener() = mBinding.button.setOnClickListener { navigateDetail() }
+    private fun setOnDetailButtonClickListener() = mBinding.button.setOnClickListener {
+        lifecycleScope.launch {
+            val lastSignInInfo = getLastSignInInfo()
+            if (mBinding.id.text?.toString() == lastSignInInfo.id && mBinding.pw.text?.toString() == lastSignInInfo.pw) {
+                navigateDetail()
+                showToast("SignIn Success ⭐️")
+            } else {
+                showToast("SignIn fail 💥")
+            }
+        }
+    }
 
     private fun navigateDetail() {
         reenterTransition = MaterialElevationScale(true).apply {
@@ -112,4 +124,5 @@ class MainFragment : Fragment() {
             start()
         }
 
+    private suspend fun getLastSignInInfo(): LastSignInInfo = settingManager.lastSignInInfo.first()
 }
