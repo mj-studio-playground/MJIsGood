@@ -42,7 +42,7 @@ class MainFragment : Fragment() {
         checkLastSignInInfo()
         observeArgs()
         setOnThemeButtonClickListener()
-        setOnDetailButtonClickListener()
+        setOnSignInButtonClickListener()
         setOnSignUpButtonClickListener()
         startLogoPulseAnim()
     }
@@ -82,10 +82,14 @@ class MainFragment : Fragment() {
         AppCompatDelegate.setDefaultNightMode(if (nightMode == AppCompatDelegate.MODE_NIGHT_YES) AppCompatDelegate.MODE_NIGHT_NO else AppCompatDelegate.MODE_NIGHT_YES)
     }
 
-    private fun setOnDetailButtonClickListener() = mBinding.button.setOnClickListener {
+    private fun setOnSignInButtonClickListener() = mBinding.button.setOnClickListener {
         lifecycleScope.launch {
             val lastSignInInfo = getLastSignInInfo()
-            if (mBinding.id.text?.toString() == lastSignInInfo.id && mBinding.pw.text?.toString() == lastSignInInfo.pw) {
+
+            val idText = mBinding.id.text?.toString() ?: ""
+            val pwText = mBinding.pw.text?.toString() ?: ""
+
+            if (idText == lastSignInInfo.id && pwText == lastSignInInfo.pw && idText.isNotBlank() && pwText.isNotBlank()) {
                 navigateDetail()
                 showToast("SignIn Success ⭐️")
             } else {
