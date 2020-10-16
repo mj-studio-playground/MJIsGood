@@ -13,6 +13,7 @@
 - Sign-in
 - Auto sign-in
 - Form validation
+- Switch dark theme
 
 ### Libraries
 
