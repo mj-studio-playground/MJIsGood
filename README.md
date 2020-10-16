@@ -9,7 +9,10 @@
 
 ### Feature
 
-- 
+- Sign-up
+- Sign-in
+- Auto sign-in
+- Form validation
 
 ### Libraries
 
