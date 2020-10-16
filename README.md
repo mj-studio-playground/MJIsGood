@@ -7,6 +7,26 @@
 
 <img src="1.gif" />
 
+### Feature
+
+- 
+
+### Libraries
+
+- AAC Lifecycle(LiveData, ViewModel)
+- Kotlin Coroutine
+- AAC Navigation
+- Hilt
+- Kotlin gradle script
+- AAC DataBinding, ViewBinding
+- Kotlin stdlib
+- ConstraintLayout
+- MDC
+- Glide
+- DataStore
+
+
+
 ## Contributors ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
