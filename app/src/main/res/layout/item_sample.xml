@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="happy.mjstudio.sopt27.model.Profile" />
+            type="happy.mjstudio.sopt27.model.Sample" />
 
     </data>
 

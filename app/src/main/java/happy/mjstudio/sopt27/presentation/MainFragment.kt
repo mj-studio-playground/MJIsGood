@@ -10,8 +10,8 @@ import com.google.android.material.transition.MaterialContainerTransform
 import dagger.hilt.android.AndroidEntryPoint
 import happy.mjstudio.sopt27.R
 import happy.mjstudio.sopt27.databinding.FragmentMainBinding
-import happy.mjstudio.sopt27.model.Profile
-import happy.mjstudio.sopt27.presentation.adapter.ProfileAdapter
+import happy.mjstudio.sopt27.model.Sample
+import happy.mjstudio.sopt27.presentation.adapter.SampleAdapter
 import happy.mjstudio.sopt27.utils.AutoClearedValue
 
 @AndroidEntryPoint
@@ -41,9 +41,9 @@ class MainFragment : Fragment() {
     }
 
     private fun configureList() = mBinding.list.run {
-        adapter = ProfileAdapter().apply {
+        adapter = SampleAdapter().apply {
             submitItems((1..100).map {
-                Profile("Title$it", "sub title - $it")
+                Sample("Title$it", "sub title - $it")
             })
         }
     }

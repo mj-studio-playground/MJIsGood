@@ -1,6 +1,6 @@
 package happy.mjstudio.sopt27.model
 
-data class Profile(
+data class Sample(
     val title: String,
     val subTitle: String,
 )
