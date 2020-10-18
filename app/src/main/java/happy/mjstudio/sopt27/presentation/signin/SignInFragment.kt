@@ -1,4 +1,4 @@
-package happy.mjstudio.sopt27.presentation
+package happy.mjstudio.sopt27.presentation.signin
 
 import android.animation.ObjectAnimator
 import android.os.Bundle
@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.transition.MaterialElevationScale
 import dagger.hilt.android.AndroidEntryPoint
 import happy.mjstudio.sopt27.databinding.FragmentSignInBinding
+import happy.mjstudio.sopt27.presentation.SignInFragmentDirections
 import happy.mjstudio.sopt27.utils.AutoClearedValue
 import happy.mjstudio.sopt27.utils.LastSignInInfo
 import happy.mjstudio.sopt27.utils.PrefSettingsManager

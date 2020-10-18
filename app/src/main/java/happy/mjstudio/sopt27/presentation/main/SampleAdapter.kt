@@ -1,4 +1,4 @@
-package happy.mjstudio.sopt27.presentation.adapter
+package happy.mjstudio.sopt27.presentation.main
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import happy.mjstudio.sopt27.databinding.ItemSampleBinding
 import happy.mjstudio.sopt27.model.Sample
-import happy.mjstudio.sopt27.presentation.adapter.SampleAdapter.SampleHolder
+import happy.mjstudio.sopt27.presentation.main.SampleAdapter.SampleHolder
 
 class SampleAdapter : ListAdapter<Sample, SampleHolder>(DIFF) {
 

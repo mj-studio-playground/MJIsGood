@@ -1,4 +1,4 @@
-package happy.mjstudio.sopt27.presentation
+package happy.mjstudio.sopt27.presentation.signup
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,6 +12,7 @@ import androidx.navigation.fragment.navArgs
 import com.google.android.material.transition.MaterialElevationScale
 import dagger.hilt.android.AndroidEntryPoint
 import happy.mjstudio.sopt27.databinding.FragmentSignUpBinding
+import happy.mjstudio.sopt27.presentation.SignUpFragmentArgs
 import happy.mjstudio.sopt27.utils.AutoClearedValue
 import happy.mjstudio.sopt27.utils.PrefSettingsManager
 import happy.mjstudio.sopt27.utils.showToast

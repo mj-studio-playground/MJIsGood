@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/signInFragment"
-        android:name="happy.mjstudio.sopt27.presentation.SignInFragment"
+        android:name="happy.mjstudio.sopt27.presentation.signin.SignInFragment"
         android:label="SignInFragment"
         tools:layout="@layout/fragment_sign_in">
         <action
@@ -19,11 +19,11 @@
     </fragment>
     <fragment
         android:id="@+id/mainFragment"
-        android:name="happy.mjstudio.sopt27.presentation.MainFragment"
+        android:name="happy.mjstudio.sopt27.presentation.main.MainFragment"
         android:label="MainFragment" />
     <fragment
         android:id="@+id/signUpFragment"
-        android:name="happy.mjstudio.sopt27.presentation.SignUpFragment"
+        android:name="happy.mjstudio.sopt27.presentation.signup.SignUpFragment"
         android:label="SignUpFragment" >
         <argument
             android:name="id"

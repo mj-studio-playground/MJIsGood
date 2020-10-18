@@ -1,4 +1,4 @@
-package happy.mjstudio.sopt27.presentation
+package happy.mjstudio.sopt27.presentation.main
 
 import android.graphics.Color
 import android.os.Bundle
@@ -11,7 +11,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import happy.mjstudio.sopt27.R
 import happy.mjstudio.sopt27.databinding.FragmentMainBinding
 import happy.mjstudio.sopt27.model.Sample
-import happy.mjstudio.sopt27.presentation.adapter.SampleAdapter
 import happy.mjstudio.sopt27.utils.AutoClearedValue
 
 @AndroidEntryPoint
