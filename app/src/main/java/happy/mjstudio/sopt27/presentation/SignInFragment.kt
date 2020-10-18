@@ -13,7 +13,7 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.transition.MaterialElevationScale
 import dagger.hilt.android.AndroidEntryPoint
-import happy.mjstudio.sopt27.databinding.FragmentMainBinding
+import happy.mjstudio.sopt27.databinding.FragmentSignInBinding
 import happy.mjstudio.sopt27.utils.AutoClearedValue
 import happy.mjstudio.sopt27.utils.LastSignInInfo
 import happy.mjstudio.sopt27.utils.PrefSettingsManager
@@ -23,8 +23,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainFragment : Fragment() {
-    private var mBinding: FragmentMainBinding by AutoClearedValue()
+class SignInFragment : Fragment() {
+    private var mBinding: FragmentSignInBinding by AutoClearedValue()
 
     private var checkAutoSignIn = false
 
@@ -32,7 +32,7 @@ class MainFragment : Fragment() {
     lateinit var settingManager: PrefSettingsManager
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
-        FragmentMainBinding.inflate(inflater, container, false).also {
+        FragmentSignInBinding.inflate(inflater, container, false).also {
             mBinding = it
         }.root
 
@@ -108,7 +108,7 @@ class MainFragment : Fragment() {
         }
 
         val extras = FragmentNavigatorExtras(mBinding.title to "title")
-        findNavController().navigate(MainFragmentDirections.actionMainFragmentToDetailFragment(), extras)
+        findNavController().navigate(SignInFragmentDirections.actionSignInFragmentToDetailFragment(), extras)
     }
 
     private fun setOnSignUpButtonClickListener() = mBinding.signUp.setOnClickListener { navigateSignUp() }
@@ -122,7 +122,7 @@ class MainFragment : Fragment() {
         }
 
         findNavController().navigate(
-            MainFragmentDirections.actionMainFragmentToSignUpFragment(
+            SignInFragmentDirections.actionSignInFragmentToSignUpFragment(
                 mBinding.id.text?.toString() ?: "", mBinding.pw.text?.toString() ?: ""
             )
         )

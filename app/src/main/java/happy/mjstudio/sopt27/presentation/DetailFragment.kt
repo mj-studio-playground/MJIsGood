@@ -10,6 +10,8 @@ import com.google.android.material.transition.MaterialContainerTransform
 import dagger.hilt.android.AndroidEntryPoint
 import happy.mjstudio.sopt27.R
 import happy.mjstudio.sopt27.databinding.FragmentDetailBinding
+import happy.mjstudio.sopt27.model.Profile
+import happy.mjstudio.sopt27.presentation.adapter.ProfileAdapter
 import happy.mjstudio.sopt27.utils.AutoClearedValue
 
 @AndroidEntryPoint
@@ -27,6 +29,7 @@ class DetailFragment : Fragment() {
         mBinding.lifecycleOwner = viewLifecycleOwner
 
         setTransition()
+        configureList()
     }
 
     private fun setTransition() {
@@ -34,6 +37,14 @@ class DetailFragment : Fragment() {
             duration = 500L
             scrimColor = Color.TRANSPARENT
             setAllContainerColors(requireContext().getColor(R.color.colorTransparent))
+        }
+    }
+
+    private fun configureList() = mBinding.list.run {
+        adapter = ProfileAdapter().apply {
+            submitItems((1..100).map {
+                Profile("Title$it", "sub title - $it")
+            })
         }
     }
 }
