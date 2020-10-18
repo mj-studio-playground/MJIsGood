@@ -9,18 +9,18 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.transition.MaterialContainerTransform
 import dagger.hilt.android.AndroidEntryPoint
 import happy.mjstudio.sopt27.R
-import happy.mjstudio.sopt27.databinding.FragmentDetailBinding
+import happy.mjstudio.sopt27.databinding.FragmentMainBinding
 import happy.mjstudio.sopt27.model.Profile
 import happy.mjstudio.sopt27.presentation.adapter.ProfileAdapter
 import happy.mjstudio.sopt27.utils.AutoClearedValue
 
 @AndroidEntryPoint
-class DetailFragment : Fragment() {
+class MainFragment : Fragment() {
 
-    private var mBinding: FragmentDetailBinding by AutoClearedValue()
+    private var mBinding: FragmentMainBinding by AutoClearedValue()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
-        FragmentDetailBinding.inflate(inflater, container, false).let {
+        FragmentMainBinding.inflate(inflater, container, false).let {
             mBinding = it
             it.root
         }

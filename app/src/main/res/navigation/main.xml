@@ -11,16 +11,16 @@
         android:label="SignInFragment"
         tools:layout="@layout/fragment_sign_in">
         <action
-            android:id="@+id/action_signInFragment_to_detailFragment"
-            app:destination="@id/detailFragment" />
+            android:id="@+id/action_signInFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
         <action
             android:id="@+id/action_signInFragment_to_signUpFragment"
             app:destination="@id/signUpFragment" />
     </fragment>
     <fragment
-        android:id="@+id/detailFragment"
-        android:name="happy.mjstudio.sopt27.presentation.DetailFragment"
-        android:label="DetailFragment" />
+        android:id="@+id/mainFragment"
+        android:name="happy.mjstudio.sopt27.presentation.MainFragment"
+        android:label="MainFragment" />
     <fragment
         android:id="@+id/signUpFragment"
         android:name="happy.mjstudio.sopt27.presentation.SignUpFragment"

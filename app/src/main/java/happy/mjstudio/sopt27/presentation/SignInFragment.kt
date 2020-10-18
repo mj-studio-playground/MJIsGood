@@ -61,7 +61,7 @@ class SignInFragment : Fragment() {
             val info = settingManager.lastSignInInfo.first()
             if (info.id.isNotBlank() && info.pw.isNotBlank()) {
                 showToast("Auto sign-in success 🚀")
-                navigateDetail()
+                navigateMain()
             }
             checkAutoSignIn = true
         }
@@ -91,7 +91,7 @@ class SignInFragment : Fragment() {
             val pwText = mBinding.pw.text?.toString() ?: ""
 
             if (idText == lastSignInInfo.id && pwText == lastSignInInfo.pw && idText.isNotBlank() && pwText.isNotBlank()) {
-                navigateDetail()
+                navigateMain()
                 showToast("SignIn Success ⭐️")
             } else {
                 showToast("SignIn fail 💥")
@@ -99,7 +99,7 @@ class SignInFragment : Fragment() {
         }
     }
 
-    private fun navigateDetail() {
+    private fun navigateMain() {
         reenterTransition = MaterialElevationScale(true).apply {
             duration = 300L
         }
@@ -108,7 +108,7 @@ class SignInFragment : Fragment() {
         }
 
         val extras = FragmentNavigatorExtras(mBinding.title to "title")
-        findNavController().navigate(SignInFragmentDirections.actionSignInFragmentToDetailFragment(), extras)
+        findNavController().navigate(SignInFragmentDirections.actionSignInFragmentToMainFragment(), extras)
     }
 
     private fun setOnSignUpButtonClickListener() = mBinding.signUp.setOnClickListener { navigateSignUp() }

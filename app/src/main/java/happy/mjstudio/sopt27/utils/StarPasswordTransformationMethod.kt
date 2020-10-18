@@ -29,6 +29,6 @@ class StarPasswordTransformationMethod : PasswordTransformationMethod() {
 }
 
 @BindingAdapter("app:starTransformation", requireAll = false)
-fun EditText.setStarTransformMethod(enable: Boolean) {
-    transformationMethod = StarPasswordTransformationMethod()
+fun EditText.setStarTransformMethod(enabled: Boolean) {
+    transformationMethod = if(enabled) StarPasswordTransformationMethod() else null
 }
