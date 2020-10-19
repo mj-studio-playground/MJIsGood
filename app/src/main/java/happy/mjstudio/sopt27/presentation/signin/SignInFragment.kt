@@ -15,7 +15,6 @@ import com.google.android.material.transition.MaterialElevationScale
 import dagger.hilt.android.AndroidEntryPoint
 import happy.mjstudio.sopt27.databinding.FragmentSignInBinding
 import happy.mjstudio.sopt27.utils.AutoClearedValue
-import happy.mjstudio.sopt27.utils.logE
 import happy.mjstudio.sopt27.utils.onDebounceClick
 import happy.mjstudio.sopt27.utils.showToast
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -59,7 +58,6 @@ class SignInFragment : Fragment() {
 
     private fun tryAutoSignIn() = lifecycleScope.launchWhenStarted {
         if (viewModel.canAutoSignIn()) {
-            logE("autoSign success")
             navigateMain()
         }
     }
@@ -70,19 +68,16 @@ class SignInFragment : Fragment() {
 
     private fun observeSignInResult() {
         viewModel.onSignInSuccess.observe(viewLifecycleOwner) { isAutoSignIn ->
-            logE("signInsuccess $isAutoSignIn")
             showToast(if (isAutoSignIn) "Auto sign-in success 🚀" else "SignIn Success ⭐️")
             navigateMain()
         }
 
         viewModel.onSignInFail.observe(viewLifecycleOwner) {
-            logE("signInfail")
             showToast("SignIn fail 💥")
         }
     }
 
     private fun navigateMain() {
-        logE("navigateMain")
         reenterTransition = MaterialElevationScale(true).apply {
             duration = 300L
         }
