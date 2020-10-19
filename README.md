@@ -15,18 +15,17 @@
 - Form validation
 - Switch dark theme
 
-### Libraries
+### What to learn
 
 - AAC Lifecycle(LiveData, ViewModel)
+- AAC DataBinding, ViewBinding
 - Kotlin Coroutine
 - AAC Navigation
 - Hilt
 - Kotlin gradle script
-- AAC DataBinding, ViewBinding
 - Kotlin stdlib
 - ConstraintLayout
 - MDC
-- Glide
 - DataStore
 
 
