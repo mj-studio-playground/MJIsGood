@@ -5,18 +5,28 @@
 
 ### 24124124th Android sample
 
+### Android gesture detection is almost hell -.-
+
 <img src="1.gif" />
 
 ### Feature
 
+#### Assignment #1
 - Sign-up
 - Sign-in
 - Auto sign-in
 - Form validation
 - Switch dark theme
 
+#### Assignment #2
+- Show items in list
+- Drag items in list
+- Swipe items in list
+- Delete items in list
+
 ### What to learn
 
+### Assignment #1
 - AAC Lifecycle(LiveData, ViewModel)
 - AAC DataBinding, ViewBinding
 - Kotlin Coroutine
@@ -28,7 +38,23 @@
 - MDC
 - DataStore
 
+### Assignment #2
+- RecyclerView
+- ItemTouchHelper
+- SwipeMenuTouchListener.kt
+- OnDebounceClickListener
+- EventLiveData.kt
+- ItemTouchHelperAdapter.kt
+- PixelRatio
+- ViewModel
+- Suspend function
+- OnBackPressedCallback
+- MaterialContainerTransform
 
+### Checkout date
+
+- assignment #1 2020.10.15
+- assignment #2 2020.10.19
 
 ## Contributors ✨
 
