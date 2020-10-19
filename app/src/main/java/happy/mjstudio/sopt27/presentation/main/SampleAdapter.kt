@@ -63,11 +63,11 @@ class SampleAdapter(private val pixelRatio: PixelRatio) : RecyclerView.Adapter<S
                 }
 
                 override fun onMenuOpened() {
-                    menuOpens[adapterPosition] = true
+                    menuOpens[layoutPosition] = true
                 }
 
                 override fun onMenuClosed() {
-                    menuOpens[adapterPosition] = false
+                    menuOpens[layoutPosition] = false
                 }
             })
         )
@@ -79,7 +79,7 @@ class SampleAdapter(private val pixelRatio: PixelRatio) : RecyclerView.Adapter<S
         }
 
         private fun setOnRemoveMenuClickListener() = binding.menu onDebounceClick {
-            removeItem(adapterPosition)
+            removeItem(layoutPosition)
         }
 
         fun bind(item: Sample, isMenuOpen: Boolean) {
