@@ -6,17 +6,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.google.android.material.transition.MaterialContainerTransform
 import dagger.hilt.android.AndroidEntryPoint
 import happy.mjstudio.sopt27.R
 import happy.mjstudio.sopt27.databinding.FragmentMainBinding
-import happy.mjstudio.sopt27.model.Sample
 import happy.mjstudio.sopt27.utils.AutoClearedValue
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
+@ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class MainFragment : Fragment() {
 
     private var mBinding: FragmentMainBinding by AutoClearedValue()
+    private val viewModel by viewModels<MainViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
         FragmentMainBinding.inflate(inflater, container, false).let {
@@ -26,6 +29,7 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         mBinding.lifecycleOwner = viewLifecycleOwner
+        mBinding.viewModel = viewModel
 
         setTransition()
         configureList()
@@ -40,10 +44,6 @@ class MainFragment : Fragment() {
     }
 
     private fun configureList() = mBinding.list.run {
-        adapter = SampleAdapter().apply {
-            submitItems((1..100).map {
-                Sample("Title$it", "sub title - $it")
-            })
-        }
+        adapter = SampleAdapter()
     }
 }

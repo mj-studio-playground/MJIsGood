@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="happy.mjstudio.sopt27.presentation.main.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -26,6 +29,8 @@
             app:layout_constraintVertical_bias="0.1" />
 
         <androidx.recyclerview.widget.RecyclerView
+            app:recyclerview_profile_items="@{viewModel.datas.value}"
+            tools:itemCount="4"
             android:layoutAnimation="@anim/layout_animation_fall_down"
             android:id="@+id/list"
             android:layout_width="match_parent"
@@ -37,7 +42,17 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/title"
+            tools:layoutAnimation="@null"
             tools:listitem="@layout/item_sample" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

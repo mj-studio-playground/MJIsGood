@@ -33,7 +33,7 @@ object Versions {
 
     const val googleAuth = "18.1.0"
 
-    const val coroutine = "1.3.7"
+    const val coroutine = "1.4.0-M1"
     const val hiltAndroid = "2.28-alpha"
     const val hilt = "1.0.0-alpha02"
     const val javapoet = "1.13.0"

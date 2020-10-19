@@ -7,29 +7,26 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.observe
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.transition.MaterialElevationScale
 import dagger.hilt.android.AndroidEntryPoint
 import happy.mjstudio.sopt27.databinding.FragmentSignInBinding
 import happy.mjstudio.sopt27.utils.AutoClearedValue
-import happy.mjstudio.sopt27.utils.LastSignInInfo
-import happy.mjstudio.sopt27.utils.PrefSettingsManager
+import happy.mjstudio.sopt27.utils.logE
+import happy.mjstudio.sopt27.utils.onDebounceClick
 import happy.mjstudio.sopt27.utils.showToast
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.launch
-import javax.inject.Inject
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 
+@ExperimentalCoroutinesApi
+@FlowPreview
 @AndroidEntryPoint
 class SignInFragment : Fragment() {
     private var mBinding: FragmentSignInBinding by AutoClearedValue()
-
-    private var checkAutoSignIn = false
-
-    @Inject
-    lateinit var settingManager: PrefSettingsManager
+    private val viewModel by viewModels<SignInViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
         FragmentSignInBinding.inflate(inflater, container, false).also {
@@ -38,68 +35,54 @@ class SignInFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         mBinding.lifecycleOwner = viewLifecycleOwner
+        mBinding.viewModel = viewModel
 
-        handleSavedInstanceState(savedInstanceState)
-        checkLastSignInInfo()
         observeArgs()
+        tryAutoSignIn()
+        observeSignInResult()
         setOnThemeButtonClickListener()
         setOnSignInButtonClickListener()
-        setOnSignUpButtonClickListener()
+        setOnSignUpButtonListener()
         startLogoPulseAnim()
     }
 
-    private fun handleSavedInstanceState(savedInstanceState: Bundle?) {
-        savedInstanceState?.run {
-            checkAutoSignIn = getBoolean("checkAutoSignIn")
-        }
-    }
-
-    private fun checkLastSignInInfo() {
-        if (checkAutoSignIn) return
-
-        lifecycleScope.launchWhenCreated {
-            val info = settingManager.lastSignInInfo.first()
-            if (info.id.isNotBlank() && info.pw.isNotBlank()) {
-                showToast("Auto sign-in success 🚀")
-                navigateMain()
-            }
-            checkAutoSignIn = true
-        }
-    }
-
     private fun observeArgs() {
-        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData("id", "")
-            ?.observe<String>(viewLifecycleOwner) {
-                mBinding.id.setText(it)
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String>("id")
+            ?.observe(viewLifecycleOwner) {
+                viewModel.id.value = it
             }
-        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData("pw", "")
-            ?.observe<String>(viewLifecycleOwner) {
-                mBinding.pw.setText(it)
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String>("pw")
+            ?.observe(viewLifecycleOwner) {
+                viewModel.pw.value = it
             }
     }
 
-    private fun setOnThemeButtonClickListener() = mBinding.switchTheme.setOnClickListener {
-        val nightMode = AppCompatDelegate.getDefaultNightMode()
-        AppCompatDelegate.setDefaultNightMode(if (nightMode == AppCompatDelegate.MODE_NIGHT_YES) AppCompatDelegate.MODE_NIGHT_NO else AppCompatDelegate.MODE_NIGHT_YES)
+    private fun tryAutoSignIn() = lifecycleScope.launchWhenStarted {
+        if (viewModel.canAutoSignIn()) {
+            logE("autoSign success")
+            navigateMain()
+        }
     }
 
-    private fun setOnSignInButtonClickListener() = mBinding.button.setOnClickListener {
-        lifecycleScope.launch {
-            val lastSignInInfo = getLastSignInInfo()
+    private fun setOnSignInButtonClickListener() = mBinding.button onDebounceClick {
+        viewModel.tryManualSignIn()
+    }
 
-            val idText = mBinding.id.text?.toString() ?: ""
-            val pwText = mBinding.pw.text?.toString() ?: ""
+    private fun observeSignInResult() {
+        viewModel.onSignInSuccess.observe(viewLifecycleOwner) { isAutoSignIn ->
+            logE("signInsuccess $isAutoSignIn")
+            showToast(if (isAutoSignIn) "Auto sign-in success 🚀" else "SignIn Success ⭐️")
+            navigateMain()
+        }
 
-            if (idText == lastSignInInfo.id && pwText == lastSignInInfo.pw && idText.isNotBlank() && pwText.isNotBlank()) {
-                navigateMain()
-                showToast("SignIn Success ⭐️")
-            } else {
-                showToast("SignIn fail 💥")
-            }
+        viewModel.onSignInFail.observe(viewLifecycleOwner) {
+            logE("signInfail")
+            showToast("SignIn fail 💥")
         }
     }
 
     private fun navigateMain() {
+        logE("navigateMain")
         reenterTransition = MaterialElevationScale(true).apply {
             duration = 300L
         }
@@ -111,7 +94,7 @@ class SignInFragment : Fragment() {
         findNavController().navigate(SignInFragmentDirections.actionSignInFragmentToMainFragment(), extras)
     }
 
-    private fun setOnSignUpButtonClickListener() = mBinding.signUp.setOnClickListener { navigateSignUp() }
+    private fun setOnSignUpButtonListener() = mBinding.signUp.onDebounceClick { navigateSignUp() }
 
     private fun navigateSignUp() {
         reenterTransition = MaterialElevationScale(true).apply {
@@ -123,9 +106,14 @@ class SignInFragment : Fragment() {
 
         findNavController().navigate(
             SignInFragmentDirections.actionSignInFragmentToSignUpFragment(
-                mBinding.id.text?.toString() ?: "", mBinding.pw.text?.toString() ?: ""
+                viewModel.id.value!!, viewModel.pw.value!!
             )
         )
+    }
+
+    private fun setOnThemeButtonClickListener() = mBinding.switchTheme onDebounceClick {
+        val nightMode = AppCompatDelegate.getDefaultNightMode()
+        AppCompatDelegate.setDefaultNightMode(if (nightMode == AppCompatDelegate.MODE_NIGHT_YES) AppCompatDelegate.MODE_NIGHT_NO else AppCompatDelegate.MODE_NIGHT_YES)
     }
 
     private fun startLogoPulseAnim() {
@@ -142,10 +130,4 @@ class SignInFragment : Fragment() {
             start()
         }
 
-    private suspend fun getLastSignInInfo(): LastSignInInfo = settingManager.lastSignInInfo.first()
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putBoolean("checkAutoSignIn", true)
-    }
 }

@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="happy.mjstudio.sopt27.presentation.signin.SignInViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -27,6 +30,7 @@
             app:layout_constraintVertical_bias="0.3" />
 
         <com.google.android.material.textfield.TextInputLayout
+            app:hintAnimationEnabled="false"
             android:id="@+id/id_layout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
@@ -37,12 +41,14 @@
             app:layout_constraintTop_toBottomOf="@+id/title">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:text="@={viewModel.id}"
                 android:id="@+id/id"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            app:hintAnimationEnabled="false"
             android:id="@+id/pw_layout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
@@ -53,6 +59,7 @@
             app:layout_constraintTop_toBottomOf="@+id/id_layout">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:text="@={viewModel.pw}"
                 app:starTransformation="@{true}"
                 android:id="@+id/pw"
                 android:layout_width="match_parent"

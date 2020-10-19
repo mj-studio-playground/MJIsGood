@@ -14,6 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import happy.mjstudio.sopt27.databinding.FragmentSignUpBinding
 import happy.mjstudio.sopt27.utils.AutoClearedValue
 import happy.mjstudio.sopt27.utils.PrefSettingsManager
+import happy.mjstudio.sopt27.utils.onDebounceClick
 import happy.mjstudio.sopt27.utils.showToast
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -63,11 +64,9 @@ class SignUpFragment : Fragment() {
         }
     }
 
-    private fun setOnSignUpButtonListener() = mBinding.signUp.setOnClickListener {
+    private fun setOnSignUpButtonListener() = mBinding.signUp onDebounceClick {
         if (isFormsValid) {
-            findNavController().previousBackStackEntry!!.savedStateHandle["id"] = id.value
-            findNavController().previousBackStackEntry!!.savedStateHandle["pw"] = pw.value
-
+            saveIdPwToPreviousBackStackEntry()
             showToast("SignUp Success ✅")
 
             lifecycleScope.launch {
@@ -77,6 +76,11 @@ class SignUpFragment : Fragment() {
         } else {
             showToast("Fill the all forms 💥")
         }
+    }
+
+    private fun saveIdPwToPreviousBackStackEntry() {
+        findNavController().previousBackStackEntry?.savedStateHandle?.set("id", id.value)
+        findNavController().previousBackStackEntry?.savedStateHandle?.set("pw", pw.value)
     }
 
 }
