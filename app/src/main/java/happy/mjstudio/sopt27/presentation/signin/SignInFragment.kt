@@ -9,10 +9,10 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.transition.MaterialElevationScale
 import dagger.hilt.android.AndroidEntryPoint
+import happy.mjstudio.sopt27.R
 import happy.mjstudio.sopt27.databinding.FragmentSignInBinding
 import happy.mjstudio.sopt27.utils.AutoClearedValue
 import happy.mjstudio.sopt27.utils.observeEvent
@@ -85,8 +85,9 @@ class SignInFragment : Fragment() {
             duration = 300L
         }
 
-        val extras = FragmentNavigatorExtras(mBinding.title to "title")
-        findNavController().navigate(SignInFragmentDirections.actionSignInFragmentToMainFragment(), extras)
+        /*Disable shared-element transition because of weird memory leak*/
+        //        val extras = FragmentNavigatorExtras(mBinding.title to "title")
+        findNavController().navigate(R.id.action_signInFragment_to_mainFragment, null, null /*extras*/)
     }
 
     private fun setOnSignUpButtonListener() = mBinding.signUp.onDebounceClick { navigateSignUp() }

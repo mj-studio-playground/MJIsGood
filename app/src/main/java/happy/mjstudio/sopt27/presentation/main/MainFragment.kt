@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isInvisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -19,15 +20,29 @@ import happy.mjstudio.sopt27.R
 import happy.mjstudio.sopt27.databinding.FragmentMainBinding
 import happy.mjstudio.sopt27.utils.AutoClearedValue
 import happy.mjstudio.sopt27.utils.SimpleItemTouchHelperCallback
+import happy.mjstudio.sopt27.utils.addBackPressedCallback
+import happy.mjstudio.sopt27.utils.onBackPressed
 import happy.mjstudio.sopt27.utils.onDebounceClick
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class MainFragment : Fragment() {
-
     private var mBinding: FragmentMainBinding by AutoClearedValue()
     private val viewModel by viewModels<MainViewModel>()
+
+    private var isCardShowing = false
+
+    private val backPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            isEnabled = false
+            if (isCardShowing) {
+                hideCard()
+            } else {
+                onBackPressed()
+            }
+        }
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
         FragmentMainBinding.inflate(inflater, container, false).let {
@@ -43,13 +58,13 @@ class MainFragment : Fragment() {
         configureList()
         setFabClickListener()
         setLayoutChangeButtonsListener()
+        addBackPressedCallback(backPressedCallback)
     }
 
     private fun setTransition() {
         sharedElementEnterTransition = MaterialContainerTransform().apply {
             duration = 500L
             scrimColor = Color.TRANSPARENT
-            setAllContainerColors(requireContext().getColor(R.color.colorTransparent))
         }
     }
 
@@ -80,6 +95,9 @@ class MainFragment : Fragment() {
     }
 
     private fun showCard() {
+        isCardShowing = true
+        backPressedCallback.isEnabled = true
+
         TransitionManager.beginDelayedTransition(
             mBinding.root as ViewGroup, createContainerTransform(mBinding.fab, mBinding.card)
         )
@@ -88,6 +106,8 @@ class MainFragment : Fragment() {
     }
 
     private fun hideCard() {
+        isCardShowing = false
+
         TransitionManager.beginDelayedTransition(
             mBinding.root as ViewGroup, createContainerTransform(mBinding.card, mBinding.fab)
         )

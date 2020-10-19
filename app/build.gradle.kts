@@ -71,7 +71,7 @@ dependencies {
     implementation("androidx.core:core-ktx:${Versions.androidxCore}")
     implementation("androidx.appcompat:appcompat:${Versions.androidxAppCompat}")
     implementation("androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}")
-    implementation("com.google.android.material:material:${Versions.material}")
+    implementation("com.google.android.material:material:1.2.1")
 
     implementation("androidx.activity:activity-ktx:${Versions.androidxActivity}")
     implementation("androidx.fragment:fragment-ktx:${Versions.androidxFragment}")
@@ -105,6 +105,8 @@ dependencies {
     implementation("androidx.hilt:hilt-lifecycle-viewmodel:${Versions.hilt}")
     kapt("androidx.hilt:hilt-compiler:${Versions.hilt}")
     kapt("com.squareup:javapoet:${Versions.javapoet}")
+
+    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.5")
 }
 
 dependencies {
