@@ -5,20 +5,20 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 
 interface ItemTouchHelperAdapter {
-    fun onItemMove(fromPosition: Int, toPosition: Int): Boolean
-
-    fun onItemDismiss(position: Int)
+    fun onItemMove(fromPosition: Int, toPosition: Int)
 }
 
 class SimpleItemTouchHelperCallback(private val adapter: ItemTouchHelperAdapter) : ItemTouchHelper.SimpleCallback(
     ItemTouchHelper.UP or ItemTouchHelper.DOWN or ItemTouchHelper.START or ItemTouchHelper.END, ItemTouchHelper.START
 ) {
+    private var swipeBack = false
+
     override fun isLongPressDragEnabled(): Boolean {
         return true
     }
 
     override fun isItemViewSwipeEnabled(): Boolean {
-        return true
+        return false
     }
 
     override fun onMove(
@@ -27,13 +27,16 @@ class SimpleItemTouchHelperCallback(private val adapter: ItemTouchHelperAdapter)
         val pos1 = viewHolder.adapterPosition
         val pos2 = target.adapterPosition
 
-        return adapter.onItemMove(pos1, pos2)
+        adapter.onItemMove(pos1, pos2)
+        return true
     }
 
     override fun onSwiped(viewHolder: ViewHolder, direction: Int) {
-        val pos = viewHolder.adapterPosition
 
-        adapter.onItemDismiss(pos)
+    }
+
+    fun attachToRecyclerView(rv: RecyclerView) {
+        ItemTouchHelper(this).attachToRecyclerView(rv)
     }
 }
 

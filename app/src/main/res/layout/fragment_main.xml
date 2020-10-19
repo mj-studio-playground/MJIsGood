@@ -29,7 +29,7 @@
             app:layout_constraintVertical_bias="0.1" />
 
         <androidx.recyclerview.widget.RecyclerView
-            app:recyclerview_profile_items="@{viewModel.datas}"
+            android:nestedScrollingEnabled="false"
             tools:itemCount="4"
             android:layoutAnimation="@anim/layout_animation_fall_down"
             android:id="@+id/list"

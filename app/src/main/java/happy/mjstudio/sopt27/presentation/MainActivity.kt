@@ -10,7 +10,11 @@ import happy.mjstudio.sopt27.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivityMainBinding
 
+    private lateinit var mainFragmentFactory: MainFragmentFactory
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        mainFragmentFactory = MainFragmentFactory.getInstance(this)
+        supportFragmentManager.fragmentFactory = mainFragmentFactory
         super.onCreate(savedInstanceState)
 
         mBinding = ActivityMainBinding.inflate(LayoutInflater.from(this))

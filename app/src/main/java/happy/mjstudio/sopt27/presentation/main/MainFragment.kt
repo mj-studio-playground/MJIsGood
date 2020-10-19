@@ -10,7 +10,6 @@ import androidx.core.view.isInvisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.transition.ArcMotion
 import androidx.transition.TransitionManager
@@ -18,7 +17,9 @@ import com.google.android.material.transition.MaterialContainerTransform
 import dagger.hilt.android.AndroidEntryPoint
 import happy.mjstudio.sopt27.R
 import happy.mjstudio.sopt27.databinding.FragmentMainBinding
+import happy.mjstudio.sopt27.model.Sample
 import happy.mjstudio.sopt27.utils.AutoClearedValue
+import happy.mjstudio.sopt27.utils.PixelRatio
 import happy.mjstudio.sopt27.utils.SimpleItemTouchHelperCallback
 import happy.mjstudio.sopt27.utils.onBackPressed
 import happy.mjstudio.sopt27.utils.onDebounceClick
@@ -26,7 +27,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
-class MainFragment : Fragment() {
+class MainFragment(private val pixelRatio: PixelRatio) : Fragment() {
     private var mBinding: FragmentMainBinding by AutoClearedValue()
     private val viewModel by viewModels<MainViewModel>()
 
@@ -73,8 +74,15 @@ class MainFragment : Fragment() {
     }
 
     private fun configureList() = mBinding.list.run {
-        adapter = SampleAdapter()
-        ItemTouchHelper(SimpleItemTouchHelperCallback(viewModel)).attachToRecyclerView(this)
+        SampleAdapter(pixelRatio).let { adapter ->
+            this.adapter = adapter
+            SimpleItemTouchHelperCallback(adapter).attachToRecyclerView(this)
+
+            adapter.submitItems((1..100).map {
+                Sample("Title$it", "sub title - $it")
+            })
+
+        }
     }
 
     private fun setFabClickListener() = mBinding.fab onDebounceClick {
