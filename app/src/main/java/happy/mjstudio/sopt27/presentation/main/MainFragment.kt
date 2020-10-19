@@ -20,7 +20,6 @@ import happy.mjstudio.sopt27.R
 import happy.mjstudio.sopt27.databinding.FragmentMainBinding
 import happy.mjstudio.sopt27.utils.AutoClearedValue
 import happy.mjstudio.sopt27.utils.SimpleItemTouchHelperCallback
-import happy.mjstudio.sopt27.utils.addBackPressedCallback
 import happy.mjstudio.sopt27.utils.onBackPressed
 import happy.mjstudio.sopt27.utils.onDebounceClick
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -53,12 +52,17 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         mBinding.lifecycleOwner = viewLifecycleOwner
         mBinding.viewModel = viewModel
+        requireActivity().onBackPressedDispatcher.addCallback(backPressedCallback)
 
         setTransition()
         configureList()
         setFabClickListener()
         setLayoutChangeButtonsListener()
-        addBackPressedCallback(backPressedCallback)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        backPressedCallback.remove()
     }
 
     private fun setTransition() {

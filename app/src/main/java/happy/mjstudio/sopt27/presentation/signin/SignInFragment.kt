@@ -85,9 +85,11 @@ class SignInFragment : Fragment() {
             duration = 300L
         }
 
-        /*Disable shared-element transition because of weird memory leak*/
+        /**
+         * why this cause fucking memory leak -.-
+         */
         //        val extras = FragmentNavigatorExtras(mBinding.title to "title")
-        findNavController().navigate(R.id.action_signInFragment_to_mainFragment, null, null /*extras*/)
+        findNavController().navigate(R.id.action_signInFragment_to_mainFragment, null, null)
     }
 
     private fun setOnSignUpButtonListener() = mBinding.signUp.onDebounceClick { navigateSignUp() }
