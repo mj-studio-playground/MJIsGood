@@ -24,11 +24,6 @@ class SampleAdapter : ListAdapter<Sample, SampleHolder>(DIFF) {
         }
     }
 
-    fun submitItems(items: List<Sample>) {
-        submitList(items)
-    }
-
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SampleHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ItemSampleBinding.inflate(inflater, parent, false)
@@ -38,7 +33,6 @@ class SampleAdapter : ListAdapter<Sample, SampleHolder>(DIFF) {
 
 
     override fun onBindViewHolder(holder: SampleHolder, position: Int) = holder.bind(getItem(position))
-
 
     inner class SampleHolder(private val binding: ItemSampleBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Sample) {
@@ -52,6 +46,6 @@ class SampleAdapter : ListAdapter<Sample, SampleHolder>(DIFF) {
 @BindingAdapter("app:recyclerview_profile_items")
 fun RecyclerView.setItems(items: List<Sample>?) {
     (adapter as? SampleAdapter)?.run {
-        this.submitItems(items ?: listOf())
+        submitList(items ?: listOf())
     }
 }

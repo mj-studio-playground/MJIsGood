@@ -29,7 +29,7 @@
             app:layout_constraintVertical_bias="0.1" />
 
         <androidx.recyclerview.widget.RecyclerView
-            app:recyclerview_profile_items="@{viewModel.datas.value}"
+            app:recyclerview_profile_items="@{viewModel.datas}"
             tools:itemCount="4"
             android:layoutAnimation="@anim/layout_animation_fall_down"
             android:id="@+id/list"
@@ -45,7 +45,50 @@
             tools:layoutAnimation="@null"
             tools:listitem="@layout/item_sample" />
 
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@id/fab"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:visibility="visible">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="24dp">
+
+                <Button
+                    android:id="@+id/change"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Change LayoutManager"
+                    android:textColor="@color/colorOnSurface" />
+
+
+                <Button
+                    android:id="@+id/cancel"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Cancel"
+                    android:textColor="@color/colorOnSurface" />
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:backgroundTint="@color/colorSurface"
+            android:foregroundTint="@color/colorOnSurface"
+            android:src="@drawable/ic_action_puzzle"
+            app:borderWidth="0dp"
             android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

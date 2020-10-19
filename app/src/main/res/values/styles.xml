@@ -28,6 +28,12 @@
         <item name="android:windowTranslucentStatus">true</item>
 
         <item name="snackbarStyle">@style/AppTheme.Snackbar</item>
+
+        <item name="materialButtonStyle">@style/AppButtonStyle</item>
+    </style>
+
+    <style name="AppButtonStyle" parent="Widget.MaterialComponents.Button">
+        <item name="textAllCaps">false</item>
     </style>
 
     <style name="AppTheme.Splash">

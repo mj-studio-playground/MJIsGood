@@ -15,6 +15,7 @@ import com.google.android.material.transition.MaterialElevationScale
 import dagger.hilt.android.AndroidEntryPoint
 import happy.mjstudio.sopt27.databinding.FragmentSignInBinding
 import happy.mjstudio.sopt27.utils.AutoClearedValue
+import happy.mjstudio.sopt27.utils.observeEvent
 import happy.mjstudio.sopt27.utils.onDebounceClick
 import happy.mjstudio.sopt27.utils.showToast
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -67,12 +68,11 @@ class SignInFragment : Fragment() {
     }
 
     private fun observeSignInResult() {
-        viewModel.onSignInSuccess.observe(viewLifecycleOwner) { isAutoSignIn ->
+        observeEvent(viewModel.onSignInSuccess) { isAutoSignIn ->
             showToast(if (isAutoSignIn) "Auto sign-in success 🚀" else "SignIn Success ⭐️")
             navigateMain()
         }
-
-        viewModel.onSignInFail.observe(viewLifecycleOwner) {
+        observeEvent(viewModel.onSignInFail) {
             showToast("SignIn fail 💥")
         }
     }
