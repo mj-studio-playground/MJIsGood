@@ -42,6 +42,7 @@ class SampleAdapter : ListAdapter<Sample, SampleHolder>(DIFF) {
 
     inner class SampleHolder(private val binding: ItemSampleBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Sample) {
+            binding.root.transitionName = item.title
             binding.item = item
             binding.executePendingBindings()
         }
