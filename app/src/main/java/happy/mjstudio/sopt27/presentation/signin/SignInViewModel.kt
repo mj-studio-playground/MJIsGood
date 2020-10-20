@@ -6,15 +6,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import happy.mjstudio.sopt27.utils.EventLiveData
 import happy.mjstudio.sopt27.utils.PrefSettingsManager
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 typealias AutoSignIn = Boolean
 
-@FlowPreview
-@ExperimentalCoroutinesApi
 class SignInViewModel @ViewModelInject constructor(
     private val settingsManager: PrefSettingsManager, /*@Assisted private val savedStateHandle: SavedStateHandle*/
 ) : ViewModel() {
