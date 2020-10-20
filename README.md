@@ -21,6 +21,21 @@
 
 ## Feature
 
+#### Assignment #1
+- Sign-up
+- Sign-in
+- Auto sign-in
+- Form validation
+- Switch dark theme
+
+#### Assignment #2
+- Show items in list
+- Drag items in list
+- Swipe items in list
+- Delete items in list
+
+## What to learn
+
 - Github action (CI android debug build)
 ```yml
 name: Android Build
@@ -54,21 +69,6 @@ jobs:
         with:
           path: app/build/outputs
 ```
-
-#### Assignment #1
-- Sign-up
-- Sign-in
-- Auto sign-in
-- Form validation
-- Switch dark theme
-
-#### Assignment #2
-- Show items in list
-- Drag items in list
-- Swipe items in list
-- Delete items in list
-
-## What to learn
 
 #### Assignment #1
 - AAC Lifecycle(LiveData, ViewModel)
