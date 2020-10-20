@@ -16,9 +16,9 @@
   [week #2](#assignment-2)
 - [What to learn](#what-to-learn)
   
-  [week #1](#assignment-3)
+  [week #1](#assignment-1-1)
   
-  [week #2](#assignment-4)
+  [week #2](#assignment-1-2)
 - [Checkout date](#checkout-date)
 - [Contributors](#contributors-)
 
