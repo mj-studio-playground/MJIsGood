@@ -27,4 +27,4 @@ jobs:
       - name: Archive artifacts
         uses: actions/upload-artifact@v2
         with:
-        	path: android/app/build/outputs
+          path: android/app/build/outputs
