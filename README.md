@@ -95,7 +95,7 @@ findNavController().navigate(
 - Hilt
 
 *AppModule.kt*
-```
+```kotlin
 @InstallIn(ApplicationComponent::class)
 @Module
 object AppModule {
