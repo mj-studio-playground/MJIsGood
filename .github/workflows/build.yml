@@ -13,8 +13,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-	  - name: Gradle cache
-	    uses: actions/cache@v2
+      - name: Gradle cache
+        uses: actions/cache@v2
         with:
           path: |
             ~/.gradle/caches
