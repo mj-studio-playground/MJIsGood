@@ -1,6 +1,7 @@
 # MJIsGood
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+![Android Build](https://github.com/mym0404/MJIsGood/workflows/Android%20Build/badge.svg)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## Preview
