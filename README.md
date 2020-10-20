@@ -10,15 +10,11 @@
 ## Contents
 
 - [Feature](#feature)
-  
-  [week #1](#assignment-1)
-  
-  [week #2](#assignment-2)
+  * [week #1](#assignment-1) 
+  * [week #2](#assignment-2)
 - [What to learn](#what-to-learn)
-  
-  [week #1](#assignment-1-1)
-  
-  [week #2](#assignment-1-2)
+  * [week #1](#assignment-1-1)
+  * [week #2](#assignment-2-1)
 - [Checkout date](#checkout-date)
 - [Contributors](#contributors-)
 
