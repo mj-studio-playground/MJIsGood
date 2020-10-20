@@ -263,6 +263,39 @@ class PixelRatio @Inject constructor(private val displayMetrics: DisplayMetrics)
 }
 ```
 
+We can test `PixelRatio` with mocking Android instance(`DisplayMetrics`) with **Mockito**.
+```kotlin
+class PixelRatioTest {
+    private lateinit var pixelRatio: PixelRatio
+
+    private val mockWidth = 1000
+    private val mockHeight = 2000
+
+    @Before
+    fun setup() {
+        val mockDisplayMetrics = mock(DisplayMetrics::class.java).apply {
+            widthPixels = mockWidth
+            heightPixels = mockHeight
+            density = 3f
+        }
+
+        pixelRatio = PixelRatio(mockDisplayMetrics)
+    }
+
+    @Test
+    fun `screenWidth, screenHeight should be same with real screen size`() {
+        Truth.assertThat(pixelRatio.screenWidth).isEqualTo(mockWidth)
+        Truth.assertThat(pixelRatio.screenHeight).isEqualTo(mockHeight)
+    }
+
+    @Test
+    fun `toDP, toPixel`() {
+        Truth.assertThat(pixelRatio.toDP(3)).isEqualTo(1)
+        Truth.assertThat(pixelRatio.toPixel(1)).isEqualTo(3)
+    }
+}
+```
+
 - ViewModel
 - Suspend function
 - OnBackPressedCallback
