@@ -293,6 +293,7 @@ override fun onDestroyView() {
 ```
 
 - MaterialContainerTransform
+- LeakCanary and Android Studio memory profiler
 
 ## Checkout date
 
