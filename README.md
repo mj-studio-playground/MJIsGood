@@ -36,6 +36,40 @@
 
 ## What to learn
 
+- Github action (CI android debug build)
+```yml
+name: Android Build
+on: [push]
+defaults:
+  run:
+    shell: bash
+    working-directory: .
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: build debug
+    if: "!contains(toJSON(github.event.commits.*.message), '[skip action]') && !startsWith(github.ref, 'refs/tags/')"
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Gradle cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+      - name: Build debug
+        run: ./gradlew assembleDebug
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          path: app/build/outputs
+```
+
 #### Assignment #1
 - AAC Lifecycle(LiveData, ViewModel)
 
