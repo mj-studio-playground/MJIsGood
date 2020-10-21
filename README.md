@@ -19,7 +19,7 @@
 - [Checkout date](#checkout-date)
 - [Contributors](#contributors-)
 
-## Libraries
+## Library
 - Kotlin standard library
 - Glide
 - Dagger, Hilt
