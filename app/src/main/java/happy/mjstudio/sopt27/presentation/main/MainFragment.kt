@@ -11,6 +11,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import androidx.transition.ArcMotion
 import androidx.transition.TransitionManager
 import com.google.android.material.transition.MaterialContainerTransform
@@ -58,6 +60,7 @@ class MainFragment(private val pixelRatio: PixelRatio, private val loremIpsum: L
         configureList()
         setFabClickListener()
         setLayoutChangeButtonsListener()
+        setTitleDropShadowListener()
     }
 
     override fun onDestroyView() {
@@ -151,4 +154,10 @@ class MainFragment(private val pixelRatio: PixelRatio, private val loremIpsum: L
             mBinding.list.layoutManager = GridLayoutManager(requireContext(), 2)
         }
     }
+
+    private fun setTitleDropShadowListener() = mBinding.list.addOnScrollListener(object : OnScrollListener() {
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            mBinding.scrollShadow.isActivated = recyclerView.canScrollVertically(-1)
+        }
+    })
 }

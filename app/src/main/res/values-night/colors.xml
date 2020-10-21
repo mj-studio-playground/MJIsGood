@@ -38,6 +38,7 @@
 
     <color name="colorBackground">#000000</color>
     <color name="colorSurface">#222222</color>
+    <color name="colorUnderSurface">#000000</color>
 
     <color name="colorOnBackground">#EAEAEA</color>
     <color name="colorOnBackground70">#b3EAEAEA</color>
