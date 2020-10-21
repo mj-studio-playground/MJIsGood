@@ -15,12 +15,13 @@ import dagger.hilt.android.AndroidEntryPoint
 import happy.mjstudio.sopt27.R
 import happy.mjstudio.sopt27.databinding.FragmentSignInBinding
 import happy.mjstudio.sopt27.utils.AutoClearedValue
+import happy.mjstudio.sopt27.utils.BioAuth
 import happy.mjstudio.sopt27.utils.observeEvent
 import happy.mjstudio.sopt27.utils.onDebounceClick
 import happy.mjstudio.sopt27.utils.showToast
 
 @AndroidEntryPoint
-class SignInFragment : Fragment() {
+class SignInFragment(private val bioAuth: BioAuth) : Fragment() {
     private var mBinding: FragmentSignInBinding by AutoClearedValue()
     private val viewModel by viewModels<SignInViewModel>()
 
@@ -38,6 +39,7 @@ class SignInFragment : Fragment() {
         observeSignInResult()
         setOnThemeButtonClickListener()
         setOnSignInButtonClickListener()
+        setOnBioSignInButtonClickListener()
         setOnSignUpButtonListener()
         startLogoPulseAnim()
     }
@@ -61,6 +63,22 @@ class SignInFragment : Fragment() {
 
     private fun setOnSignInButtonClickListener() = mBinding.button onDebounceClick {
         viewModel.tryManualSignIn()
+    }
+
+    private fun setOnBioSignInButtonClickListener() = mBinding.bioButton onDebounceClick {
+        if (!bioAuth.biometricEnabled) {
+            showToast("This device doesn't support biometric authentication")
+        } else {
+            tryBiometricAuth()
+        }
+    }
+
+    private fun tryBiometricAuth() = lifecycleScope.launchWhenStarted {
+        if (bioAuth.authenticate(this@SignInFragment)) {
+            showToast("Success 🚀")
+        } else {
+            showToast("Fail 💥")
+        }
     }
 
     private fun observeSignInResult() {

@@ -32,7 +32,9 @@ import happy.mjstudio.sopt27.utils.showToast
 
 @AndroidEntryPoint
 class MainFragment(
-    private val pixelRatio: PixelRatio, private val loremIpsum: LoremIpsum, private val authenticator: Authenticator
+    private val pixelRatio: PixelRatio,
+    private val loremIpsum: LoremIpsum,
+    private val authenticator: Authenticator,
 ) : Fragment() {
     private var mBinding: FragmentMainBinding by AutoClearedValue()
     private val viewModel by viewModels<MainViewModel>()

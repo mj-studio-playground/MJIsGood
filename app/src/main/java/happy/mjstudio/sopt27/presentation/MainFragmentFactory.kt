@@ -13,6 +13,7 @@ import happy.mjstudio.sopt27.di.AuthenticatorModule.Companion.AUTHENTICATOR_TYPE
 import happy.mjstudio.sopt27.presentation.main.MainFragment
 import happy.mjstudio.sopt27.presentation.signin.SignInFragment
 import happy.mjstudio.sopt27.presentation.signup.SignUpFragment
+import happy.mjstudio.sopt27.utils.BioAuth
 import happy.mjstudio.sopt27.utils.PixelRatio
 import javax.inject.Named
 
@@ -26,14 +27,18 @@ class MainFragmentFactory(activity: Activity) : FragmentFactory() {
 
         @Named(AUTHENTICATOR_TYPE)
         fun authenticator(): Authenticator
+
+        fun bioAuth(): BioAuth
     }
 
     private val entryPoint = EntryPointAccessors.fromActivity(activity, MainFragmentFactoryEntryPoint::class.java)
 
     override fun instantiate(classLoader: ClassLoader, className: String): Fragment {
         return when (loadFragmentClass(classLoader, className)) {
-            MainFragment::class.java -> MainFragment(entryPoint.pixelRatio(), entryPoint.loremIpsum(), entryPoint.authenticator())
-            SignInFragment::class.java -> SignInFragment()
+            MainFragment::class.java -> MainFragment(
+                entryPoint.pixelRatio(), entryPoint.loremIpsum(), entryPoint.authenticator()
+            )
+            SignInFragment::class.java -> SignInFragment(entryPoint.bioAuth())
             SignUpFragment::class.java -> SignUpFragment(entryPoint.authenticator())
             else -> super.instantiate(classLoader, className)
         }

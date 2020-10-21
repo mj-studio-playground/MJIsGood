@@ -96,5 +96,14 @@
             android:text="로그인"
             app:layout_constraintEnd_toEndOf="@id/pw_layout"
             app:layout_constraintTop_toBottomOf="@id/pw_layout" />
+
+        <Button
+            android:id="@+id/bioButton"
+            style="@style/Widget.MaterialComponents.Button.TextButton.Dialog.Flush"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="지문인식으로 로그인"
+            app:layout_constraintEnd_toEndOf="@id/button"
+            app:layout_constraintTop_toBottomOf="@id/button" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
