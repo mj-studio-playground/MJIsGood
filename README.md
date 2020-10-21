@@ -373,6 +373,39 @@ override fun onDestroyView() {
 
 - MaterialContainerTransform
 - LeakCanary and Android Studio memory profiler
+- ShapeableImageView, ShapeAppearanceModel
+
+```kotlin
+@BindingAdapter("app:useCircleOutlineWithRadius")
+fun ShapeableImageView.useCircleOutlineWithRadius(radius: Float) {
+    shapeAppearanceModel = ShapeAppearanceModel().withCornerSize(radius)
+}
+```
+
+- Glide
+
+```kotlin
+@BindingAdapter("app:url", requireAll = false)
+fun ImageView.loadUrlAsync(url: String?) {
+    val anim = CircularProgressDrawable(context).apply {
+        strokeWidth = 4f
+        setColorSchemeColors(
+            *listOf(
+                R.color.colorPrimary, R.color.colorSecondary, R.color.colorError70
+            ).map { context.getColor(it) }.toIntArray()
+        )
+        start()
+    }
+
+    if (url == null) {
+        Glide.with(this).load(anim).into(this)
+    } else {
+        Glide.with(this).load(url)
+            .transition(withCrossFade(DrawableCrossFadeFactory.Builder().setCrossFadeEnabled(true).build()))
+            .placeholder(anim).into(this)
+    }
+}
+```
 
 ## Checkout date
 
