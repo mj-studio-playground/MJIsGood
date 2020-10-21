@@ -3,10 +3,8 @@ package happy.mjstudio.sopt27.utils
 import android.util.DisplayMetrics
 import androidx.annotation.Px
 import javax.inject.Inject
-import javax.inject.Singleton
 import kotlin.math.roundToInt
 
-@Singleton
 class PixelRatio @Inject constructor(private val displayMetrics: DisplayMetrics) {
     val screenWidth: Int
         get() = displayMetrics.widthPixels
