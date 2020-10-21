@@ -110,6 +110,9 @@ dependencies {
     kapt("androidx.hilt:hilt-compiler:${Versions.hilt}")
     kapt("com.squareup:javapoet:${Versions.javapoet}")
 
+    //LoremIpsum
+    implementation("com.thedeanda:lorem:2.1")
+
     debugImplementation("com.squareup.leakcanary:leakcanary-android:2.5")
 }
 

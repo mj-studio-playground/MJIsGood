@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.transition.ArcMotion
 import androidx.transition.TransitionManager
 import com.google.android.material.transition.MaterialContainerTransform
+import com.thedeanda.lorem.LoremIpsum
 import dagger.hilt.android.AndroidEntryPoint
 import happy.mjstudio.sopt27.R
 import happy.mjstudio.sopt27.databinding.FragmentMainBinding
@@ -21,12 +22,11 @@ import happy.mjstudio.sopt27.model.Sample
 import happy.mjstudio.sopt27.utils.AutoClearedValue
 import happy.mjstudio.sopt27.utils.PixelRatio
 import happy.mjstudio.sopt27.utils.SimpleItemTouchHelperCallback
-import happy.mjstudio.sopt27.utils.logE
 import happy.mjstudio.sopt27.utils.onBackPressed
 import happy.mjstudio.sopt27.utils.onDebounceClick
 
 @AndroidEntryPoint
-class MainFragment(private val pixelRatio: PixelRatio) : Fragment() {
+class MainFragment(private val pixelRatio: PixelRatio, private val loremIpsum: LoremIpsum) : Fragment() {
     private var mBinding: FragmentMainBinding by AutoClearedValue()
     private val viewModel by viewModels<MainViewModel>()
 
@@ -78,7 +78,7 @@ class MainFragment(private val pixelRatio: PixelRatio) : Fragment() {
             SimpleItemTouchHelperCallback(adapter).attachToRecyclerView(this)
 
             adapter.submitItems((1..100).map {
-                Sample("Title$it", "sub title - $it")
+                Sample(loremIpsum.getWords(6, 12), loremIpsum.getParagraphs(1, 2))
             })
 
         }

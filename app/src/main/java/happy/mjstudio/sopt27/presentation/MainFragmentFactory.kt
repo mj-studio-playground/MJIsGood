@@ -3,6 +3,7 @@ package happy.mjstudio.sopt27.presentation
 import android.app.Activity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentFactory
+import com.thedeanda.lorem.LoremIpsum
 import dagger.hilt.EntryPoint
 import dagger.hilt.InstallIn
 import dagger.hilt.android.EntryPointAccessors
@@ -22,13 +23,14 @@ class MainFragmentFactory(activity: Activity) : FragmentFactory() {
     @InstallIn(ActivityComponent::class)
     interface MainFragmentFactoryEntryPoint {
         fun pixelRatio(): PixelRatio
+        fun loremIpsum(): LoremIpsum
     }
 
     private val entryPoint = EntryPointAccessors.fromActivity(activity, MainFragmentFactoryEntryPoint::class.java)
 
     override fun instantiate(classLoader: ClassLoader, className: String): Fragment {
         return when (loadFragmentClass(classLoader, className)) {
-            MainFragment::class.java -> MainFragment(entryPoint.pixelRatio())
+            MainFragment::class.java -> MainFragment(entryPoint.pixelRatio(), entryPoint.loremIpsum())
             SignInFragment::class.java -> SignInFragment()
             SignUpFragment::class.java -> SignUpFragment()
             else -> super.instantiate(classLoader, className)
