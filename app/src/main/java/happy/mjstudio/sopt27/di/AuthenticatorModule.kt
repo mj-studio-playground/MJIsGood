@@ -30,6 +30,7 @@ abstract class AuthenticatorModule {
     abstract fun bindDataStorePreferencesAuthenticator(authenticator: DataStorePreferencesAuthenticator): Authenticator
 
     companion object{
-        const val AUTHENTICATOR_TYPE = "EncryptedSharedPreferences"
+//        const val AUTHENTICATOR_TYPE = "EncryptedSharedPreferences"
+        const val AUTHENTICATOR_TYPE = "DataStorePreferences"
     }
 }
