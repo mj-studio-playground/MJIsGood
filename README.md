@@ -9,6 +9,7 @@
 <img src="1.gif" /> <img src="2.gif" />
 ## Contents
 
+- [Library](#library)
 - [Feature](#feature)
   * [week #1](#assignment-1) 
   * [week #2](#assignment-2)
@@ -17,6 +18,26 @@
   * [week #2](#assignment-2-1)
 - [Checkout date](#checkout-date)
 - [Contributors](#contributors-)
+
+## Libraries
+- Kotlin standard library
+- Glide
+- Dagger, Hilt
+- LoremIpsum
+- Leakcanary
+- Kotlin Coroutine
+
+#### Jetpack
+- Core
+- Activity
+- Fragment
+- ConstraintLayout
+- SwipeRefreshLayout
+- Material design components
+- Security-crypto
+- Lifecycle
+- Navigation
+- Hilt
 
 ## Feature
 
