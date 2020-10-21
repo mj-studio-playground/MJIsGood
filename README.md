@@ -28,6 +28,7 @@
 - Kotlin Coroutine
 
 #### Jetpack
+- DataBinding, ViewBinding
 - Core
 - Activity
 - Fragment
