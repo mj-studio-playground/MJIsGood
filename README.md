@@ -77,7 +77,7 @@ jobs:
 typealias AutoSignIn = Boolean
 
 class SignInViewModel @ViewModelInject constructor(
-    private val settingsManager: PrefSettingsManager, /*@Assisted private val savedStateHandle: SavedStateHandle*/
+    @Named(AUTHENTICATOR_TYPE) private val authenticator: Authenticator, /*@Assisted private val savedStateHandle: SavedStateHandle*/
 ) : ViewModel() {
     // StateFlow data binding support is coming in AGP 4.3
     // https://twitter.com/manuelvicnt/status/1314621067831521282
@@ -89,22 +89,11 @@ class SignInViewModel @ViewModelInject constructor(
     val onSignInSuccess = EventLiveData<AutoSignIn>()
     val onSignInFail = EventLiveData<AutoSignIn>()
 
-    private suspend fun matchWithLastSignInInfo(): Boolean {
-        val (lastId, lastPw) = settingsManager.lastSignInInfo.first()
-        return id.value == lastId && pw.value == lastPw && lastId.isNotBlank() && lastPw.isNotBlank()
-    }
-
     suspend fun canAutoSignIn(): Boolean {
         if (isAutoSignInTried) return false
         isAutoSignInTried = true
 
-        val (lastId, lastPw) = settingsManager.lastSignInInfo.first()
-        val result = lastId.isNotBlank() && lastPw.isNotBlank()
-        if (result) {
-            id.value = lastId
-            pw.value = lastPw
-        }
-        return result
+        return authenticator.canAutoSignIn()
     }
 
     fun tryManualSignIn() = viewModelScope.launch {
@@ -114,6 +103,8 @@ class SignInViewModel @ViewModelInject constructor(
             onSignInFail.emit(false)
         }
     }
+
+    private suspend fun matchWithLastSignInInfo() = authenticator.signInWithId(id.value!!, pw.value!!)
 }
 ```
 
@@ -137,7 +128,7 @@ findNavController().navigate(
 )
 ```
 
-- Hilt
+- Dagger, Hilt
 
 *AppModule.kt*
 ```kotlin
@@ -158,41 +149,140 @@ object AppModule {
 }
 ```
 
+*AuthenticatorModule.kt*
+```kotlin
+@InstallIn(ApplicationComponent::class)
+@Module
+abstract class AuthenticatorModule {
+    @Binds
+    @Singleton
+    @Named("SharedPreferences")
+    abstract fun bindSharedPreferencesAuthenticator(authenticator: SharedPreferencesAuthenticator): Authenticator
+
+    @Binds
+    @Singleton
+    @Named("EncryptedSharedPreferences")
+    abstract fun bindEncryptedSharedPreferencesAuthenticator(authenticator: EncryptedSharedPreferencesAuthenticator): Authenticator
+
+    @Binds
+    @Singleton
+    @Named("DataStorePreferences")
+    abstract fun bindDataStorePreferencesAuthenticator(authenticator: DataStorePreferencesAuthenticator): Authenticator
+
+    companion object{
+//        const val AUTHENTICATOR_TYPE = "EncryptedSharedPreferences"
+        const val AUTHENTICATOR_TYPE = "DataStorePreferences"
+    }
+}
+```
+
+- EncryptedSharedPreferences
+
+*EncryptedSharedPreferencesAuthenticator.kt*
+```kotlin
+class EncryptedSharedPreferencesAuthenticator
+@Inject constructor(context: Context, @Named("SharedPreferences") authenticator: Authenticator) :
+    Authenticator by ((authenticator as? SharedPreferencesAuthenticator
+        ?: throw RuntimeException("Fix your type casting")).apply {
+        val masterKey = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
+        val encryptedSharedPreferences =
+            EncryptedSharedPreferences.create("EncryptedSharedPreferences", masterKey, context, AES256_SIV, AES256_GCM)
+
+        replaceSharedPreferences(encryptedSharedPreferences)
+    })
+```
+
+*SharedPreferencesAuthenticator.kt*
+```kotlin
+class SharedPreferencesAuthenticator @Inject constructor(
+    context: Context, private val validator: IdValidator
+) : Authenticator {
+    private var sharedPreferences = context.getSharedPreferences("sharedPreferences", 0)
+
+    fun replaceSharedPreferences(sharedPreferences: SharedPreferences) {
+        logE(sharedPreferences)
+        this.sharedPreferences = sharedPreferences
+    }
+
+    override suspend fun canAutoSignIn() = sharedPreferences.getBoolean(AUTO_SIGNIN_KEY, false)
+
+    override suspend fun signUpWithId(id: String, password: String) = sharedPreferences.edit(true) {
+        putString(ID_KEY, id)
+        putString(PW_KEY, password)
+    }
+
+    override suspend fun signInWithId(id: String, password: String) = validator.validateIdAndPwWithOthers(
+        id, password, sharedPreferences.getString(ID_KEY, ""), sharedPreferences.getString(PW_KEY, "")
+    ).also {
+        if (it) {
+            sharedPreferences.edit(true) {
+                putBoolean(AUTO_SIGNIN_KEY, true)
+            }
+        }
+    }
+
+    override suspend fun signOut() {
+        sharedPreferences.edit(true) {
+            remove(AUTO_SIGNIN_KEY)
+        }
+    }
+
+    companion object {
+        private const val ID_KEY = "ID"
+        private const val PW_KEY = "PW"
+        private const val AUTO_SIGNIN_KEY = "AUTO_SIGNIN"
+    }
+}
+```
+
 - Kotlin gradle script
 - Kotlin stdlib
 - ConstraintLayout
 - MDC
 - DataStore
 
-*PrefSettingsManager.kt*
+*DataStorePreferencesAuthenticator.kt*
 ```kotlin
-@Singleton
-class PrefSettingsManager @Inject constructor(context: Context) {
-    private val dataStore = context.createDataStore("setting")
+class DataStorePreferencesAuthenticator @Inject constructor(context: Context, private val validator: IdValidator) :
+    Authenticator {
+    private val dataStore = context.createDataStore("DataStorePreferencesAuthenticator")
 
-    val lastSignInInfo: Flow<LastSignInInfo> = dataStore.data.catch { e ->
-        if (e is IOException) {
-            emit(emptyPreferences())
-        } else {
-            throw e
-        }
-    }.map { pref ->
-        val id = pref[ID_KEY] ?: ""
-        val pw = pref[PW_KEY] ?: ""
+    override suspend fun canAutoSignIn() = runCatching {
+        val pref = dataStore.data.first()
+        pref[AUTO_SIGNIN_KEY] == true
+    }.getOrDefault(false)
 
-        LastSignInInfo(id, pw)
-    }
-
-    suspend fun updateLastSignInInfo(id: String, pw: String) {
+    override suspend fun signUpWithId(id: String, password: String) {
+        logE("$id $password")
         dataStore.edit { pref ->
             pref[ID_KEY] = id
-            pref[PW_KEY] = pw
+            pref[PW_KEY] = password
+        }
+    }
+
+    override suspend fun signInWithId(id: String, password: String): Boolean {
+        return runCatching {
+            val pref = dataStore.data.first()
+            validator.validateIdAndPwWithOthers(id, password, pref[ID_KEY], pref[PW_KEY]).also {
+                if (it) {
+                    dataStore.edit { pref ->
+                        pref[AUTO_SIGNIN_KEY] = true
+                    }
+                }
+            }
+        }.getOrDefault(false)
+    }
+
+    override suspend fun signOut() {
+        dataStore.edit { pref ->
+            pref.remove(AUTO_SIGNIN_KEY)
         }
     }
 
     companion object {
         private val ID_KEY = preferencesKey<String>("id")
         private val PW_KEY = preferencesKey<String>("pw")
+        private val AUTO_SIGNIN_KEY = preferencesKey<Boolean>("autoSignIn")
     }
 }
 ```
