@@ -78,7 +78,7 @@ class MainFragment(private val pixelRatio: PixelRatio, private val loremIpsum: L
             SimpleItemTouchHelperCallback(adapter).attachToRecyclerView(this)
 
             adapter.submitItems((1..100).map {
-                Sample(loremIpsum.getWords(6, 12), loremIpsum.getParagraphs(1, 2))
+                Sample(loremIpsum.getWords(2), loremIpsum.getWords(6, 12))
             })
 
         }
