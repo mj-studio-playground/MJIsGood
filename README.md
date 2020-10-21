@@ -36,6 +36,8 @@
 - SwipeRefreshLayout
 - Material design components
 - Security-crypto
+- DataStore
+- Biometric
 - Lifecycle
 - Navigation
 - Hilt
