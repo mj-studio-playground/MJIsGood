@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import happy.mjstudio.sopt27.authentication.Authenticator
 import happy.mjstudio.sopt27.di.AuthenticatorModule.Companion.AUTHENTICATOR_TYPE
 import happy.mjstudio.sopt27.utils.EventLiveData
+import happy.mjstudio.sopt27.utils.logE
 import kotlinx.coroutines.launch
 import javax.inject.Named
 

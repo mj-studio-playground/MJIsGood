@@ -3,7 +3,6 @@ package happy.mjstudio.sopt27.authentication
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
-import happy.mjstudio.sopt27.utils.logE
 import javax.inject.Inject
 
 class SharedPreferencesAuthenticator @Inject constructor(
@@ -12,7 +11,6 @@ class SharedPreferencesAuthenticator @Inject constructor(
     private var sharedPreferences = context.getSharedPreferences("sharedPreferences", 0)
 
     fun replaceSharedPreferences(sharedPreferences: SharedPreferences) {
-        logE(sharedPreferences)
         this.sharedPreferences = sharedPreferences
     }
 
