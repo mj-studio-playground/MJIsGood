@@ -176,6 +176,8 @@ abstract class AuthenticatorModule {
 }
 ```
 
+### Authentication abstraction
+
 - EncryptedSharedPreferences
 
 *EncryptedSharedPreferencesAuthenticator.kt*
@@ -235,10 +237,6 @@ class SharedPreferencesAuthenticator @Inject constructor(
 }
 ```
 
-- Kotlin gradle script
-- Kotlin stdlib
-- ConstraintLayout
-- MDC
 - DataStore
 
 *DataStorePreferencesAuthenticator.kt*
@@ -286,6 +284,49 @@ class DataStorePreferencesAuthenticator @Inject constructor(context: Context, pr
     }
 }
 ```
+
+- AndroidX Biometric
+
+*BioAuth.kt*
+```kotlin
+@Singleton
+class BioAuth @Inject constructor(private val context: Context) {
+    private val promptInfo = BiometricPrompt.PromptInfo.Builder().apply {
+        this.setTitle("Title")
+        this.setDescription("Description")
+        setNegativeButtonText("Cancel")
+        setAllowedAuthenticators(AUTHENTICATORS)
+    }.build()
+
+    val biometricEnabled: Boolean
+        get() = BiometricManager.from(context).canAuthenticate(AUTHENTICATORS) == BIOMETRIC_SUCCESS
+
+    suspend fun authenticate(fragment: Fragment) = suspendCancellableCoroutine<Boolean> { continuation ->
+        BiometricPrompt(fragment, ContextCompat.getMainExecutor(context), object : AuthenticationCallback() {
+            override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
+                continuation.resume(false)
+            }
+
+            override fun onAuthenticationSucceeded(result: AuthenticationResult) {
+                continuation.resume(true)
+            }
+
+            override fun onAuthenticationFailed() {
+                continuation.resume(false)
+            }
+        }).authenticate(promptInfo)
+    }
+
+    companion object {
+        private const val AUTHENTICATORS = BIOMETRIC_WEAK
+    }
+}
+```
+
+- Kotlin gradle script
+- Kotlin stdlib
+- ConstraintLayout
+- MDC
 
 #### Assignment #2
 - RecyclerView
