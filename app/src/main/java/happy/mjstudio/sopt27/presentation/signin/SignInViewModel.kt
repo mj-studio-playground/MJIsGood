@@ -25,8 +25,6 @@ class SignInViewModel @ViewModelInject constructor(
     val onSignInSuccess = EventLiveData<AutoSignIn>()
     val onSignInFail = EventLiveData<AutoSignIn>()
 
-    private suspend fun matchWithLastSignInInfo() = authenticator.signInWithId(id.value!!, pw.value!!)
-
     suspend fun canAutoSignIn(): Boolean {
         if (isAutoSignInTried) return false
         isAutoSignInTried = true
@@ -41,4 +39,6 @@ class SignInViewModel @ViewModelInject constructor(
             onSignInFail.emit(false)
         }
     }
+
+    private suspend fun matchWithLastSignInInfo() = authenticator.signInWithId(id.value!!, pw.value!!)
 }
