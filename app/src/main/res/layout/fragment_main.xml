@@ -101,7 +101,7 @@
         <View
             android:id="@+id/scrollShadow"
             android:layout_width="match_parent"
-            android:layout_height="4dp"
+            android:layout_height="5dp"
             android:alpha="0"
             android:background="@drawable/shadow_scroll"
             android:stateListAnimator="@animator/shadow_scroll_animator"
