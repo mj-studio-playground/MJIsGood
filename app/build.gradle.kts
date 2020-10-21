@@ -72,6 +72,7 @@ dependencies {
     implementation("androidx.appcompat:appcompat:${Versions.androidxAppCompat}")
     implementation("androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}")
     implementation("com.google.android.material:material:1.2.1")
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
 
     implementation("androidx.activity:activity-ktx:${Versions.androidxActivity}")
     implementation("androidx.fragment:fragment-ktx:${Versions.androidxFragment}")
@@ -79,6 +80,9 @@ dependencies {
     //Coroutine
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutine}")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutine}")
+
+    //Biometric
+    implementation("androidx.biometric:biometric:1.1.0-beta01")
 
     //Glide
     implementation("com.github.bumptech.glide:glide:${Versions.glide}")
