@@ -8,6 +8,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
+import happy.mjstudio.sopt27.authentication.IdValidator
 import happy.mjstudio.sopt27.utils.PixelRatio
 import javax.inject.Singleton
 
@@ -27,5 +28,8 @@ object AppModule {
     fun providePixelRatio(displayMetrics: DisplayMetrics) = PixelRatio(displayMetrics)
 
     @Provides
-    fun provideLoremIpsum() = LoremIpsum.getInstance()
+    fun provideLoremIpsum(): LoremIpsum = LoremIpsum.getInstance()
+
+    @Provides
+    fun provideIdValidator(): IdValidator = IdValidator()
 }

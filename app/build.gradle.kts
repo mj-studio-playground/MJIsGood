@@ -61,9 +61,11 @@ android {
     }
 
 
-    useLibrary("android.test.runner")
-    useLibrary("android.test.base")
-    useLibrary("android.test.mock")
+    // AGP 4.1 issue !!! JUnit version 3.8 or later expected:
+    // https://issuetracker.google.com/issues/170328018
+    //    useLibrary("android.test.runner")
+    //    useLibrary("android.test.base")
+    //    useLibrary("android.test.mock")
 }
 
 dependencies {

@@ -9,6 +9,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isInvisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,6 +20,7 @@ import com.google.android.material.transition.MaterialContainerTransform
 import com.thedeanda.lorem.LoremIpsum
 import dagger.hilt.android.AndroidEntryPoint
 import happy.mjstudio.sopt27.R
+import happy.mjstudio.sopt27.authentication.Authenticator
 import happy.mjstudio.sopt27.databinding.FragmentMainBinding
 import happy.mjstudio.sopt27.model.Sample
 import happy.mjstudio.sopt27.utils.AutoClearedValue
@@ -26,9 +28,12 @@ import happy.mjstudio.sopt27.utils.PixelRatio
 import happy.mjstudio.sopt27.utils.SimpleItemTouchHelperCallback
 import happy.mjstudio.sopt27.utils.onBackPressed
 import happy.mjstudio.sopt27.utils.onDebounceClick
+import happy.mjstudio.sopt27.utils.showToast
 
 @AndroidEntryPoint
-class MainFragment(private val pixelRatio: PixelRatio, private val loremIpsum: LoremIpsum) : Fragment() {
+class MainFragment(
+    private val pixelRatio: PixelRatio, private val loremIpsum: LoremIpsum, private val authenticator: Authenticator
+) : Fragment() {
     private var mBinding: FragmentMainBinding by AutoClearedValue()
     private val viewModel by viewModels<MainViewModel>()
 
@@ -40,9 +45,15 @@ class MainFragment(private val pixelRatio: PixelRatio, private val loremIpsum: L
             if (isCardShowing) {
                 hideCard()
             } else {
-                onBackPressed()
+                navigateBack()
             }
         }
+    }
+
+    private fun navigateBack() = lifecycleScope.launchWhenStarted{
+        authenticator.signOut()
+        showToast("Sign out 👋")
+        onBackPressed()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =

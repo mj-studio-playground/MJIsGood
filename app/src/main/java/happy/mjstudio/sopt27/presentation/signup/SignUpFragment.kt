@@ -11,21 +11,18 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.transition.MaterialElevationScale
 import dagger.hilt.android.AndroidEntryPoint
+import happy.mjstudio.sopt27.authentication.Authenticator
 import happy.mjstudio.sopt27.databinding.FragmentSignUpBinding
 import happy.mjstudio.sopt27.utils.AutoClearedValue
-import happy.mjstudio.sopt27.utils.PrefSettingsManager
 import happy.mjstudio.sopt27.utils.onDebounceClick
 import happy.mjstudio.sopt27.utils.showToast
 import kotlinx.coroutines.launch
-import javax.inject.Inject
+import javax.inject.Named
 
 @AndroidEntryPoint
-class SignUpFragment : Fragment() {
+class SignUpFragment(@Named("DataStorePreferences") private val authenticator: Authenticator) : Fragment() {
 
     private var mBinding: FragmentSignUpBinding by AutoClearedValue()
-
-    @Inject
-    lateinit var settingManager: PrefSettingsManager
 
     private val args by navArgs<SignUpFragmentArgs>()
 
@@ -70,7 +67,7 @@ class SignUpFragment : Fragment() {
             showToast("SignUp Success ✅")
 
             lifecycleScope.launch {
-                settingManager.updateLastSignInInfo(id.value!!, pw.value!!)
+                authenticator.signUpWithId(id.value!!, pw.value!!)
                 findNavController().popBackStack()
             }
         } else {
