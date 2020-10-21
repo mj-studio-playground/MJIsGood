@@ -86,8 +86,8 @@
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:backgroundTint="@color/colorSurface"
-            android:foregroundTint="@color/colorOnSurface"
             android:src="@drawable/ic_action_puzzle"
+            app:tint="@color/colorOnSurface"
             app:borderWidth="0dp"
             android:id="@+id/fab"
             android:layout_width="wrap_content"
