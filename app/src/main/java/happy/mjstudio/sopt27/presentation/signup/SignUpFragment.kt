@@ -13,6 +13,7 @@ import com.google.android.material.transition.MaterialElevationScale
 import dagger.hilt.android.AndroidEntryPoint
 import happy.mjstudio.sopt27.authentication.Authenticator
 import happy.mjstudio.sopt27.databinding.FragmentSignUpBinding
+import happy.mjstudio.sopt27.di.AuthenticatorModule.Companion.AUTHENTICATOR_TYPE
 import happy.mjstudio.sopt27.utils.AutoClearedValue
 import happy.mjstudio.sopt27.utils.onDebounceClick
 import happy.mjstudio.sopt27.utils.showToast
@@ -20,7 +21,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Named
 
 @AndroidEntryPoint
-class SignUpFragment(@Named("DataStorePreferences") private val authenticator: Authenticator) : Fragment() {
+class SignUpFragment(@Named(AUTHENTICATOR_TYPE) private val authenticator: Authenticator) : Fragment() {
 
     private var mBinding: FragmentSignUpBinding by AutoClearedValue()
 

@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import happy.mjstudio.sopt27.authentication.Authenticator
+import happy.mjstudio.sopt27.di.AuthenticatorModule.Companion.AUTHENTICATOR_TYPE
 import happy.mjstudio.sopt27.utils.EventLiveData
 import kotlinx.coroutines.launch
 import javax.inject.Named
@@ -12,7 +13,7 @@ import javax.inject.Named
 typealias AutoSignIn = Boolean
 
 class SignInViewModel @ViewModelInject constructor(
-    @Named("DataStorePreferences") private val authenticator: Authenticator, /*@Assisted private val savedStateHandle: SavedStateHandle*/
+    @Named(AUTHENTICATOR_TYPE) private val authenticator: Authenticator, /*@Assisted private val savedStateHandle: SavedStateHandle*/
 ) : ViewModel() {
     // StateFlow data binding support is coming in AGP 4.3
     // https://twitter.com/manuelvicnt/status/1314621067831521282

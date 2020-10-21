@@ -9,16 +9,13 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.EntryPointAccessors
 import dagger.hilt.android.components.ActivityComponent
 import happy.mjstudio.sopt27.authentication.Authenticator
+import happy.mjstudio.sopt27.di.AuthenticatorModule.Companion.AUTHENTICATOR_TYPE
 import happy.mjstudio.sopt27.presentation.main.MainFragment
 import happy.mjstudio.sopt27.presentation.signin.SignInFragment
 import happy.mjstudio.sopt27.presentation.signup.SignUpFragment
 import happy.mjstudio.sopt27.utils.PixelRatio
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.FlowPreview
 import javax.inject.Named
 
-@FlowPreview
-@ExperimentalCoroutinesApi
 class MainFragmentFactory(activity: Activity) : FragmentFactory() {
 
     @EntryPoint
@@ -26,7 +23,8 @@ class MainFragmentFactory(activity: Activity) : FragmentFactory() {
     interface MainFragmentFactoryEntryPoint {
         fun pixelRatio(): PixelRatio
         fun loremIpsum(): LoremIpsum
-        @Named("DataStorePreferences")
+
+        @Named(AUTHENTICATOR_TYPE)
         fun authenticator(): Authenticator
     }
 

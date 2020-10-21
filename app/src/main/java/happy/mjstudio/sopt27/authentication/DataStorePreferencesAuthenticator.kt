@@ -15,7 +15,7 @@ class DataStorePreferencesAuthenticator @Inject constructor(context: Context, pr
 
     override suspend fun canAutoSignIn() = runCatching {
         val pref = dataStore.data.first()
-        !pref[ID_KEY].isNullOrBlank() && !pref[PW_KEY].isNullOrBlank()
+        pref[AUTO_SIGNIN_KEY] == true
     }.getOrDefault(false)
 
     override suspend fun signUpWithId(id: String, password: String) {
@@ -29,19 +29,25 @@ class DataStorePreferencesAuthenticator @Inject constructor(context: Context, pr
     override suspend fun signInWithId(id: String, password: String): Boolean {
         return runCatching {
             val pref = dataStore.data.first()
-            validator.validateIdAndPwWithOthers(id, password, pref[ID_KEY], pref[PW_KEY])
+            validator.validateIdAndPwWithOthers(id, password, pref[ID_KEY], pref[PW_KEY]).also {
+                if (it) {
+                    dataStore.edit { pref ->
+                        pref[AUTO_SIGNIN_KEY] = true
+                    }
+                }
+            }
         }.getOrDefault(false)
     }
 
     override suspend fun signOut() {
         dataStore.edit { pref ->
-            pref.remove(ID_KEY)
-            pref.remove(PW_KEY)
+            pref.remove(AUTO_SIGNIN_KEY)
         }
     }
 
     companion object {
         private val ID_KEY = preferencesKey<String>("id")
         private val PW_KEY = preferencesKey<String>("pw")
+        private val AUTO_SIGNIN_KEY = preferencesKey<Boolean>("autoSignIn")
     }
 }

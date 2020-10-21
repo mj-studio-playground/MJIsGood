@@ -18,11 +18,7 @@ import happy.mjstudio.sopt27.utils.AutoClearedValue
 import happy.mjstudio.sopt27.utils.observeEvent
 import happy.mjstudio.sopt27.utils.onDebounceClick
 import happy.mjstudio.sopt27.utils.showToast
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.FlowPreview
 
-@ExperimentalCoroutinesApi
-@FlowPreview
 @AndroidEntryPoint
 class SignInFragment : Fragment() {
     private var mBinding: FragmentSignInBinding by AutoClearedValue()

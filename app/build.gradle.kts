@@ -85,6 +85,11 @@ dependencies {
 
     //Biometric
     implementation("androidx.biometric:biometric:1.1.0-beta01")
+    //DataStore
+    implementation("androidx.datastore:datastore-preferences:1.0.0-alpha02")
+    //Security
+//    implementation("androidx.security:security-identity-credential:1.0.0-rc03")
+    implementation("androidx.security:security-crypto:1.1.0-alpha02")
 
     //Glide
     implementation("com.github.bumptech.glide:glide:${Versions.glide}")
@@ -97,9 +102,6 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:${Versions.androidxLifecycle}")
     implementation("androidx.lifecycle:lifecycle-common-java8:${Versions.androidxLifecycleJava8}")
     testImplementation("androidx.arch.core:core-testing:${Versions.androidxArchCoreTesting}")
-
-    //DataStore
-    implementation("androidx.datastore:datastore-preferences:1.0.0-alpha02")
 
     //Navigation
     implementation("androidx.navigation:navigation-fragment-ktx:${Versions.androidxNavigation}")
