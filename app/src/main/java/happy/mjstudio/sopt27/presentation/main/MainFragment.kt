@@ -21,11 +21,10 @@ import happy.mjstudio.sopt27.model.Sample
 import happy.mjstudio.sopt27.utils.AutoClearedValue
 import happy.mjstudio.sopt27.utils.PixelRatio
 import happy.mjstudio.sopt27.utils.SimpleItemTouchHelperCallback
+import happy.mjstudio.sopt27.utils.logE
 import happy.mjstudio.sopt27.utils.onBackPressed
 import happy.mjstudio.sopt27.utils.onDebounceClick
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-@ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class MainFragment(private val pixelRatio: PixelRatio) : Fragment() {
     private var mBinding: FragmentMainBinding by AutoClearedValue()
