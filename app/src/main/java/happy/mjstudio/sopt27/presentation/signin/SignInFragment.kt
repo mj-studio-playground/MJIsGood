@@ -57,6 +57,7 @@ class SignInFragment(private val bioAuth: BioAuth) : Fragment() {
 
     private fun tryAutoSignIn() = lifecycleScope.launchWhenStarted {
         if (viewModel.canAutoSignIn()) {
+            showToast("Auto sign-in success 🚀")
             navigateMain()
         }
     }
@@ -82,8 +83,8 @@ class SignInFragment(private val bioAuth: BioAuth) : Fragment() {
     }
 
     private fun observeSignInResult() {
-        observeEvent(viewModel.onSignInSuccess) { isAutoSignIn ->
-            showToast(if (isAutoSignIn) "Auto sign-in success 🚀" else "SignIn Success ⭐️")
+        observeEvent(viewModel.onSignInSuccess) {
+            showToast("SignIn Success ⭐️")
             navigateMain()
         }
         observeEvent(viewModel.onSignInFail) {
