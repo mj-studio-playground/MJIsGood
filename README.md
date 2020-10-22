@@ -206,6 +206,16 @@ abstract class AuthenticatorModule {
 
 ### Authentication abstraction
 
+*Authenticator.kt*
+```kotlin
+interface Authenticator {
+    suspend fun canAutoSignIn(): Boolean
+    suspend fun signUpWithId(id: String, password: String)
+    suspend fun signInWithId(id: String, password: String): Boolean
+    suspend fun signOut()
+}
+```
+
 *SharedPreferencesAuthenticator.kt*
 ```kotlin
 class SharedPreferencesAuthenticator @Inject constructor(
