@@ -26,7 +26,7 @@ open class EventLiveData<T> : MutableLiveData<T>() {
 }
 
 class SimpleEventLiveData : EventLiveData<Unit>() {
-    override fun emit() {
+    fun emit() {
         super.emit(Unit)
     }
 }
