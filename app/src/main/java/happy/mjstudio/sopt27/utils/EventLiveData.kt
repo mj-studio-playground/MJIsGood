@@ -7,7 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import java.util.concurrent.atomic.*
 
-class EventLiveData<T> : MutableLiveData<T>() {
+open class EventLiveData<T> : MutableLiveData<T>() {
     private val pending = AtomicBoolean(false)
 
     override fun observe(owner: LifecycleOwner, observer: Observer<in T>) {
@@ -19,9 +19,15 @@ class EventLiveData<T> : MutableLiveData<T>() {
     }
 
     @MainThread
-    fun emit(value: T) {
+    open fun emit(value: T) {
         pending.set(true)
         setValue(value)
+    }
+}
+
+class SimpleEventLiveData : EventLiveData<Unit>() {
+    override fun emit() {
+        super.emit(Unit)
     }
 }
 

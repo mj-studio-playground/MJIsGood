@@ -6,8 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import happy.mjstudio.sopt27.authentication.Authenticator
 import happy.mjstudio.sopt27.di.AuthenticatorModule.Companion.AUTHENTICATOR_TYPE
-import happy.mjstudio.sopt27.utils.EventLiveData
-import happy.mjstudio.sopt27.utils.logE
+import happy.mjstudio.sopt27.utils.SimpleEventLiveData
 import kotlinx.coroutines.launch
 import javax.inject.Named
 
@@ -21,8 +20,8 @@ class SignInViewModel @ViewModelInject constructor(
 
     private var isAutoSignInTried = false
 
-    val onSignInSuccess = EventLiveData<Unit>()
-    val onSignInFail = EventLiveData<Unit>()
+    val onSignInSuccess = SimpleEventLiveData()
+    val onSignInFail = SimpleEventLiveData()
 
     suspend fun canAutoSignIn(): Boolean {
         if (isAutoSignInTried) return false
@@ -33,9 +32,9 @@ class SignInViewModel @ViewModelInject constructor(
 
     fun tryManualSignIn() = viewModelScope.launch {
         if (matchWithLastSignInInfo()) {
-            onSignInSuccess.emit(Unit)
+            onSignInSuccess.emit()
         } else {
-            onSignInFail.emit(Unit)
+            onSignInFail.emit()
         }
     }
 

@@ -36,6 +36,6 @@ abstract class AuthenticatorModule {
     abstract fun bindEncryptedFileAuthenticator(authenticator: EncryptedFileAuthenticator): Authenticator
 
     companion object {
-        const val AUTHENTICATOR_TYPE = "EncryptedSharedPreferences"
+        const val AUTHENTICATOR_TYPE = "SharedPreferences"
     }
 }
