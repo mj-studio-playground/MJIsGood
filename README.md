@@ -193,14 +193,28 @@ abstract class AuthenticatorModule {
     @Named("DataStorePreferences")
     abstract fun bindDataStorePreferencesAuthenticator(authenticator: DataStorePreferencesAuthenticator): Authenticator
 
-    companion object{
-//        const val AUTHENTICATOR_TYPE = "EncryptedSharedPreferences"
-        const val AUTHENTICATOR_TYPE = "DataStorePreferences"
+    @Binds
+    @Singleton
+    @Named("EncryptedFileAuthenticator")
+    abstract fun bindEncryptedFileAuthenticator(authenticator: EncryptedFileAuthenticator): Authenticator
+
+    companion object {
+        const val AUTHENTICATOR_TYPE = "EncryptedSharedPreferences"
     }
 }
 ```
 
 ### Authentication abstraction
+
+*Authenticator.kt*
+```kotlin
+interface Authenticator {
+    suspend fun canAutoSignIn(): Boolean
+    suspend fun signUpWithId(id: String, password: String)
+    suspend fun signInWithId(id: String, password: String): Boolean
+    suspend fun signOut()
+}
+```
 
 *SharedPreferencesAuthenticator.kt*
 ```kotlin
@@ -603,6 +617,45 @@ fun ImageView.loadUrlAsync(url: String?) {
         Glide.with(this).load(url)
             .transition(withCrossFade(DrawableCrossFadeFactory.Builder().setCrossFadeEnabled(true).build()))
             .placeholder(anim).into(this)
+    }
+}
+```
+
+- FragmentFactory
+
+*MainFragmentFactory.kt*
+```kotlin
+class MainFragmentFactory(activity: Activity) : FragmentFactory() {
+
+    @EntryPoint
+    @InstallIn(ActivityComponent::class)
+    interface MainFragmentFactoryEntryPoint {
+        fun pixelRatio(): PixelRatio
+        fun loremIpsum(): LoremIpsum
+
+        @Named(AUTHENTICATOR_TYPE)
+        fun authenticator(): Authenticator
+
+        fun bioAuth(): BioAuth
+    }
+
+    private val entryPoint = EntryPointAccessors.fromActivity(activity, MainFragmentFactoryEntryPoint::class.java)
+
+    override fun instantiate(classLoader: ClassLoader, className: String): Fragment {
+        return when (loadFragmentClass(classLoader, className)) {
+            MainFragment::class.java -> MainFragment(
+                entryPoint.pixelRatio(), entryPoint.loremIpsum(), entryPoint.authenticator()
+            )
+            SignInFragment::class.java -> SignInFragment(entryPoint.bioAuth())
+            SignUpFragment::class.java -> SignUpFragment(entryPoint.authenticator())
+            else -> super.instantiate(classLoader, className)
+        }
+    }
+
+    companion object {
+        fun getInstance(activity: Activity): MainFragmentFactory {
+            return MainFragmentFactory(activity)
+        }
     }
 }
 ```
