@@ -6,7 +6,7 @@
     <data>
         <variable
             name="item"
-            type="happy.mjstudio.sopt27.model.Sample" />
+            type="happy.mjstudio.sopt27.domain.entity.Sample" />
 
     </data>
 

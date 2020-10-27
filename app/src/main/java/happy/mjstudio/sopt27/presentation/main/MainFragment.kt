@@ -22,7 +22,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import happy.mjstudio.sopt27.R
 import happy.mjstudio.sopt27.authentication.Authenticator
 import happy.mjstudio.sopt27.databinding.FragmentMainBinding
-import happy.mjstudio.sopt27.model.Sample
 import happy.mjstudio.sopt27.utils.AutoClearedValue
 import happy.mjstudio.sopt27.utils.PixelRatio
 import happy.mjstudio.sopt27.utils.SimpleItemTouchHelperCallback
@@ -74,6 +73,7 @@ class MainFragment(
         setFabClickListener()
         setLayoutChangeButtonsListener()
         setTitleDropShadowListener()
+        observeSamples()
     }
 
     override fun onDestroyView() {
@@ -92,12 +92,11 @@ class MainFragment(
         SampleAdapter(pixelRatio).let { adapter ->
             this.adapter = adapter
             SimpleItemTouchHelperCallback(adapter).attachToRecyclerView(this)
-
-            adapter.submitItems((1..100).map {
-                Sample(loremIpsum.getWords(2), loremIpsum.getWords(6, 12))
-            })
-
         }
+    }
+
+    private fun observeSamples() = viewModel.samples.observe(viewLifecycleOwner) {
+        (mBinding.list.adapter as? SampleAdapter)?.submitItems(it)
     }
 
     private fun setFabClickListener() = mBinding.fab onDebounceClick {

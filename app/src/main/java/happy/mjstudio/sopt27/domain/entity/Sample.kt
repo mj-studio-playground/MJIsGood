@@ -1,4 +1,4 @@
-package happy.mjstudio.sopt27.model
+package happy.mjstudio.sopt27.domain.entity
 
 import kotlin.random.Random
 

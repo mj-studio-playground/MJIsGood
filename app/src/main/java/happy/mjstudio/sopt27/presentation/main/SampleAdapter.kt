@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import happy.mjstudio.sopt27.databinding.ItemSampleBinding
-import happy.mjstudio.sopt27.model.Sample
+import happy.mjstudio.sopt27.domain.entity.Sample
 import happy.mjstudio.sopt27.presentation.main.SampleAdapter.SampleHolder
 import happy.mjstudio.sopt27.utils.ItemTouchHelperAdapter
 import happy.mjstudio.sopt27.utils.PixelRatio
