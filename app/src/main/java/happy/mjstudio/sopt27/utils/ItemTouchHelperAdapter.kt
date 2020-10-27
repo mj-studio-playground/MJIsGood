@@ -11,8 +11,6 @@ interface ItemTouchHelperAdapter {
 class SimpleItemTouchHelperCallback(private val adapter: ItemTouchHelperAdapter) : ItemTouchHelper.SimpleCallback(
     ItemTouchHelper.UP or ItemTouchHelper.DOWN or ItemTouchHelper.START or ItemTouchHelper.END, ItemTouchHelper.START
 ) {
-    private var swipeBack = false
-
     override fun isLongPressDragEnabled(): Boolean {
         return true
     }

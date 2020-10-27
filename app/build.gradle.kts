@@ -60,6 +60,15 @@ android {
         }
     }
 
+    lintOptions {
+        lintConfig = file("${rootDir}/lint.xml")
+        xmlReport = false
+        htmlReport = true
+        isIgnoreWarnings = false
+        isAbortOnError = true
+        isWarningsAsErrors = true
+    }
+
 
     // AGP 4.1 issue !!! JUnit version 3.8 or later expected:
     // https://issuetracker.google.com/issues/170328018
@@ -154,4 +163,12 @@ dependencies {
 
     androidTestImplementation("com.google.dagger:hilt-android-testing:2.28-alpha")
     kaptAndroidTest("com.google.dagger:hilt-android-compiler:2.28-alpha")
+}
+
+tasks.register("lintAppModule") {
+    dependsOn(":app:lint")
+
+    doLast {
+        println("Lint check success ✅")
+    }
 }
