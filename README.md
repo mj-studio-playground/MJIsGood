@@ -59,6 +59,17 @@
 
 ## What to learn
 
+- Kotlin Gradle script(custom task)
+```kotlin
+tasks.register("lintAppModule") {
+    dependsOn(":app:lint")
+
+    doLast {
+        println("Lint check success ✅")
+    }
+}
+```
+
 - Github action (CI android debug build)
 ```yml
 name: Android Build
@@ -85,12 +96,15 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
+      - name: Lint
+        run: ./gradlew lintAppModule
       - name: Build debug
         run: ./gradlew assembleDebug
       - name: Archive artifacts
         uses: actions/upload-artifact@v2
         with:
           path: app/build/outputs
+
 ```
 
 #### Assignment #1
