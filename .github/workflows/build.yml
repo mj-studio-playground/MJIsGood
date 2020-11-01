@@ -22,8 +22,8 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
-      - name: Lint
-        run: ./gradlew lintAppModule
+#      - name: Lint
+#        run: ./gradlew lintAppModule
       - name: Build debug
         run: ./gradlew assembleDebug
       - name: Archive artifacts
