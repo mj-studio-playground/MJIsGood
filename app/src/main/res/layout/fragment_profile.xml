@@ -23,17 +23,15 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/image"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:background="@color/colorOnSurface15"
             android:src="@drawable/ic_profile"
-            app:layout_constraintDimensionRatio="1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/guide1"
-            app:layout_constraintWidth_percent="0.2"
             app:tint="@color/colorOnSurface50"
-            app:useCircleOutlineWithRadius="@{true}" />
+            app:useCircleOutlineWithRadius="@{@dimen/radius_profile_image}" />
 
         <TextView
             android:id="@+id/name"

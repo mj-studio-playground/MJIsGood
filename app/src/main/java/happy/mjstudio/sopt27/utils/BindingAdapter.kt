@@ -2,7 +2,6 @@ package happy.mjstudio.sopt27.utils
 
 import android.view.View
 import android.widget.ImageView
-import androidx.core.view.doOnLayout
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
@@ -35,11 +34,8 @@ fun ImageView.loadUrlAsync(url: String?) {
 }
 
 @BindingAdapter("app:useCircleOutlineWithRadius")
-fun ShapeableImageView.useCircleOutlineWithRadius(enable: Boolean = true) {
-    doOnLayout {
-        shapeAppearanceModel = ShapeAppearanceModel().withCornerSize(width * 0.5f)
-    }
-
+fun ShapeableImageView.useCircleOutlineWithRadius(radius: Float) {
+    shapeAppearanceModel = ShapeAppearanceModel().withCornerSize(radius)
 }
 
 @BindingAdapter("android:visibility")

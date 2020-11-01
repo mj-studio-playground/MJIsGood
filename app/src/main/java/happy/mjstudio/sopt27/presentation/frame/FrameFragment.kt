@@ -64,6 +64,7 @@ class FrameFragment : Fragment() {
 
     private fun observeViewModel() {
         viewModel.pageIdx.observe(viewLifecycleOwner) { pageIdx ->
+            mBinding.pager.isUserInputEnabled = pageIdx != 1
             scrollPagerToMenu(pageIdx)
             selectBottomNavigationMenu(pageIdx)
         }
