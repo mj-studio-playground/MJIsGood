@@ -6,7 +6,7 @@
 
 ## Preview
 
-<img src="1.gif" /> <img src="2.gif" />
+<img src="1.gif" /> <img src="2.gif" /> <img src="3.gif" />
 ## Contents
 
 - [Library](#library)
@@ -56,6 +56,9 @@
 - Drag items in list
 - Swipe items in list
 - Delete items in list
+
+#### Assignment #3
+- ViewPager2
 
 ## What to learn
 
