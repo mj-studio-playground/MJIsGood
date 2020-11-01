@@ -6,7 +6,7 @@
 
 ## Preview
 
-<img src="1.gif" /> <img src="2.gif" /> <img src="3.gif" />
+<img src="1.gif" width="200px" /> <img src="2.gif" width="200px" /> <img src="3.gif" width="200px" />
 ## Contents
 
 - [Library](#library)
