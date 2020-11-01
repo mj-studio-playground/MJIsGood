@@ -104,7 +104,7 @@ class SignInFragment(private val bioAuth: BioAuth) : Fragment() {
          * why this cause fucking memory leak -.-
          */
         //        val extras = FragmentNavigatorExtras(mBinding.title to "title")
-        findNavController().navigate(R.id.action_signInFragment_to_mainFragment, null, null)
+        findNavController().navigate(R.id.action_signInFragment_to_frameFragment, null, null)
     }
 
     private fun setOnSignUpButtonListener() = mBinding.signUp.onDebounceClick { navigateSignUp() }

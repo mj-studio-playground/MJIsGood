@@ -16,20 +16,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="52dp"
-            android:transitionName="title"
-            android:id="@+id/title"
-            android:background="@color/colorBackground"
-            android:gravity="center"
-            android:text="@string/app_name"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <androidx.recyclerview.widget.RecyclerView
             android:nestedScrollingEnabled="false"
             tools:itemCount="4"
@@ -42,7 +28,7 @@
             android:paddingBottom="24dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/title"
+            app:layout_constraintTop_toTopOf="parent"
             tools:layoutAnimation="@null"
             tools:listitem="@layout/item_sample" />
 

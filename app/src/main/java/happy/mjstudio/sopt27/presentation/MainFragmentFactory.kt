@@ -10,6 +10,7 @@ import dagger.hilt.android.EntryPointAccessors
 import dagger.hilt.android.components.ActivityComponent
 import happy.mjstudio.sopt27.authentication.Authenticator
 import happy.mjstudio.sopt27.di.AuthenticatorModule.Companion.AUTHENTICATOR_TYPE
+import happy.mjstudio.sopt27.presentation.frame.FrameFragment
 import happy.mjstudio.sopt27.presentation.main.MainFragment
 import happy.mjstudio.sopt27.presentation.signin.SignInFragment
 import happy.mjstudio.sopt27.presentation.signup.SignUpFragment
@@ -35,6 +36,7 @@ class MainFragmentFactory(activity: Activity) : FragmentFactory() {
 
     override fun instantiate(classLoader: ClassLoader, className: String): Fragment {
         return when (loadFragmentClass(classLoader, className)) {
+            FrameFragment::class.java -> FrameFragment()
             MainFragment::class.java -> MainFragment(
                 entryPoint.pixelRatio(), entryPoint.loremIpsum(), entryPoint.authenticator()
             )

@@ -11,17 +11,12 @@
         android:label="SignInFragment"
         tools:layout="@layout/fragment_sign_in">
         <action
-            android:id="@+id/action_signInFragment_to_mainFragment"
-            app:destination="@id/mainFragment" />
-        <action
             android:id="@+id/action_signInFragment_to_signUpFragment"
             app:destination="@id/signUpFragment" />
+        <action
+            android:id="@+id/action_signInFragment_to_frameFragment"
+            app:destination="@id/frameFragment" />
     </fragment>
-    <fragment
-        tools:layout="@layout/fragment_main"
-        android:id="@+id/mainFragment"
-        android:name="happy.mjstudio.sopt27.presentation.main.MainFragment"
-        android:label="MainFragment" />
     <fragment
         android:label="SignUpFragment"
         android:id="@+id/signUpFragment"
@@ -34,4 +29,9 @@
             android:name="pw"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/frameFragment"
+        android:name="happy.mjstudio.sopt27.presentation.frame.FrameFragment"
+        android:label="FrameFragment"
+        tools:layout="@layout/fragment_frame" />
 </navigation>
