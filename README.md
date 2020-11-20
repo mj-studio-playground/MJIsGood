@@ -13,9 +13,11 @@
 - [Feature](#feature)
   * [week #1](#assignment-1) 
   * [week #2](#assignment-2)
+  * [week #3](#assignment-3)
 - [What to learn](#what-to-learn)
   * [week #1](#assignment-1-1)
   * [week #2](#assignment-2-1)
+  * [week #3](#assignment-3-1)
 - [Checkout date](#checkout-date)
 - [Contributors](#contributors-)
 
@@ -58,7 +60,7 @@
 - Delete items in list
 
 #### Assignment #3
-- ViewPager2
+- ViewPager2 (setPageTransform)
 
 ## What to learn
 
@@ -677,10 +679,35 @@ class MainFragmentFactory(activity: Activity) : FragmentFactory() {
 }
 ```
 
+#### Assignment #3
+
+- FragmentStateAdapter
+
+*FrameAdapter.kt*
+```kotlin
+class FrameAdapter(private val fragment: Fragment) : FragmentStateAdapter(fragment) {
+    override fun getItemCount(): Int {
+        return 3
+    }
+
+    override fun createFragment(position: Int): Fragment {
+        val classLoader = fragment.requireActivity().classLoader
+        val factory = MainFragmentFactory.getInstance(fragment.requireActivity())
+        return when (position) {
+            0 -> factory.instantiate(classLoader, ProfileFragment::class.java.name)
+            1 -> factory.instantiate(classLoader, MainFragment::class.java.name)
+            2 -> factory.instantiate(classLoader, SettingsFragment::class.java.name)
+            else -> throw RuntimeException("What the...")
+        }
+    }
+}
+```
+
 ## Checkout date
 
 - assignment #1 2020.10.15
 - assignment #2 2020.10.19
+- assignment #3 2020.11.20
 
 ## Contributors ✨
 
