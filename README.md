@@ -703,6 +703,26 @@ class FrameAdapter(private val fragment: Fragment) : FragmentStateAdapter(fragme
 }
 ```
 
+- ViewPager2
+
+*FrameFragment.kt*
+```kotlin
+private fun configurePager() = mBinding.pager.run {
+    offscreenPageLimit = 3
+    adapter = FrameAdapter(this@FrameFragment)
+    registerOnPageChangeCallback(object : OnPageChangeCallback() {
+        override fun onPageSelected(position: Int) {
+            viewModel.onPageSelected(position)
+        }
+    })
+    setPageTransformer { page, position ->
+        page.pivotX = if (position < 0) page.width.toFloat() else 0f
+        page.pivotY = page.height * 0.5f
+        page.rotationY = 50f * position
+    }
+}
+```
+
 ## Checkout date
 
 - assignment #1 2020.10.15
