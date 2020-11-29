@@ -6,7 +6,7 @@
 
 ## Preview
 
-<img src="1.gif" width="200px" /> <img src="2.gif" width="200px" /> <img src="3.gif" width="200px" />
+<img src="1.gif" width="200px" /> <img src="2.gif" width="200px" /> <img src="3.gif" width="200px" /> <img src="4.gif" width="200px" />
 ## Contents
 
 - [Library](#library)
@@ -14,10 +14,12 @@
   * [week #1](#assignment-1) 
   * [week #2](#assignment-2)
   * [week #3](#assignment-3)
+  * [week #4](#assignment-4)
 - [What to learn](#what-to-learn)
   * [week #1](#assignment-1-1)
   * [week #2](#assignment-2-1)
   * [week #3](#assignment-3-1)
+  * [week #4](#assignment-4-1)
 - [Checkout date](#checkout-date)
 - [Contributors](#contributors-)
 
