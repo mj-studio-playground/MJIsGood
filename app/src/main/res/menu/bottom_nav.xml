@@ -9,7 +9,11 @@
         android:icon="@drawable/ic_main_list"
         android:title="Main" />
     <item
-        android:id="@+id/settingsFragment"
+        android:id="@+id/userFragment"
         android:icon="@drawable/ic_settings"
-        android:title="Settings" />
+        android:title="Users" />
+    <item
+        android:id="@+id/searchFragment"
+        android:icon="@drawable/ic_kakao"
+        android:title="Search" />
 </menu>

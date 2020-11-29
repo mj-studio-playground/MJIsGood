@@ -1,7 +1,9 @@
 #include "native.h"
 #include <string>
 
-#define KEY_LEN 512
+#define REQRES_BASE_URL "https://reqres.in/api/"
+#define KAKAO_BASE_URL "https://dapi.kakao.com/"
+#define KAKAO_API_KEY "61404525f2982c9feae6b5e8cff7743d"
 
 bool is_same_string(const char *lhs, const char *rhs) {
     return strcmp(lhs, rhs) == 0;
@@ -10,14 +12,18 @@ bool is_same_string(const char *lhs, const char *rhs) {
 extern "C" {
 JNIEXPORT jstring
 JNICALL
-Java_happy_mjstudio_sopt27_utils_NativeLib_getConstant(JNIEnv *jEnv, jobject thiz, jstring
-key) {
-    char c_key[KEY_LEN];
+Java_happy_mjstudio_sopt27_utils_NativeLibImpl_getConstant(JNIEnv *jEnv, jobject thiz,
+                                                           jstring key) {
+    const char *c_key = jEnv->GetStringUTFChars(key, 0);
 
-    jEnv->GetStringUTFRegion(key, 0, KEY_LEN, c_key);
-
-    if (is_same_string(c_key, "sample key")) {
-        return jEnv->NewStringUTF("sample value");
+    if (is_same_string(c_key, "REQRES_BASE_URL")) {
+        return jEnv->NewStringUTF(REQRES_BASE_URL);
+    }
+    if (is_same_string(c_key, "KAKAO_BASE_URL")) {
+        return jEnv->NewStringUTF(KAKAO_BASE_URL);
+    }
+    if (is_same_string(c_key, "KAKAO_API_KEY")) {
+        return jEnv->NewStringUTF(KAKAO_API_KEY);
     }
 
 

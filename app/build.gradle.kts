@@ -93,9 +93,9 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutine}")
 
     //Biometric
-    implementation("androidx.biometric:biometric:1.1.0-beta01")
+    implementation("androidx.biometric:biometric:1.1.0-rc01")
     //DataStore
-    implementation("androidx.datastore:datastore-preferences:1.0.0-alpha02")
+    implementation("androidx.datastore:datastore-preferences:1.0.0-alpha04")
     //Security
 //    implementation("androidx.security:security-identity-credential:1.0.0-rc03")
     implementation("androidx.security:security-crypto:1.1.0-alpha02")
@@ -117,21 +117,29 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:${Versions.androidxNavigation}")
 
     //Dagger, Hilt
-    implementation("com.google.dagger:hilt-android:${Versions.hiltAndroid}")
-    kapt("com.google.dagger:hilt-android-compiler:${Versions.hiltAndroid}")
-    implementation("androidx.hilt:hilt-lifecycle-viewmodel:${Versions.hilt}")
-    kapt("androidx.hilt:hilt-compiler:${Versions.hilt}")
+    implementation("com.google.dagger:hilt-android:2.28-alpha")
+    kapt("com.google.dagger:hilt-android-compiler:2.28-alpha")
+    implementation("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha02")
+    kapt("androidx.hilt:hilt-compiler:1.0.0-alpha02")
     kapt("com.squareup:javapoet:${Versions.javapoet}")
 
     //LoremIpsum
     implementation("com.thedeanda:lorem:2.1")
+
+    //Retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.2.2")
+
+    //Flow UI Binding
+    implementation("io.github.reactivecircus.flowbinding:flowbinding-android:1.0.0-beta02")
 
     debugImplementation("com.squareup.leakcanary:leakcanary-android:2.5")
 }
 
 dependencies {
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.2")
-    testImplementation("junit:junit:4.12")
+    testImplementation("junit:junit:4.13.1")
     testImplementation("org.mockito:mockito-inline:3.3.3")
     testImplementation("org.robolectric:robolectric:4.3.1")
 

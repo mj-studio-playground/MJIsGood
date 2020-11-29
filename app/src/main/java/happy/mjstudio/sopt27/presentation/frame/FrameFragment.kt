@@ -34,7 +34,7 @@ class FrameFragment : Fragment() {
     }
 
     private fun configurePager() = mBinding.pager.run {
-        offscreenPageLimit = 3
+        offscreenPageLimit = 4
         adapter = FrameAdapter(this@FrameFragment)
         registerOnPageChangeCallback(object : OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
@@ -54,7 +54,8 @@ class FrameFragment : Fragment() {
                 when (it.itemId) {
                     R.id.profileFragment -> 0
                     R.id.mainFragment -> 1
-                    R.id.settingsFragment -> 2
+                    R.id.userFragment -> 2
+                    R.id.searchFragment -> 3
                     else -> throwUnknownMenuSelectedException()
                 }
             )
@@ -78,7 +79,8 @@ class FrameFragment : Fragment() {
         mBinding.bottomNavigation.selectedItemId = when (pageIdx) {
             0 -> R.id.profileFragment
             1 -> R.id.mainFragment
-            2 -> R.id.settingsFragment
+            2 -> R.id.userFragment
+            3 -> R.id.searchFragment
             else -> throwUnknownMenuSelectedException()
         }
     }

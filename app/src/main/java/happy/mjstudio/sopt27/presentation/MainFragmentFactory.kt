@@ -12,8 +12,11 @@ import happy.mjstudio.sopt27.authentication.Authenticator
 import happy.mjstudio.sopt27.di.AuthenticatorModule.Companion.AUTHENTICATOR_TYPE
 import happy.mjstudio.sopt27.presentation.frame.FrameFragment
 import happy.mjstudio.sopt27.presentation.main.MainFragment
+import happy.mjstudio.sopt27.presentation.profile.ProfileFragment
+import happy.mjstudio.sopt27.presentation.search.SearchFragment
 import happy.mjstudio.sopt27.presentation.signin.SignInFragment
 import happy.mjstudio.sopt27.presentation.signup.SignUpFragment
+import happy.mjstudio.sopt27.presentation.user.UserFragment
 import happy.mjstudio.sopt27.utils.BioAuth
 import happy.mjstudio.sopt27.utils.PixelRatio
 import javax.inject.Named
@@ -42,6 +45,10 @@ class MainFragmentFactory(activity: Activity) : FragmentFactory() {
             )
             SignInFragment::class.java -> SignInFragment(entryPoint.bioAuth())
             SignUpFragment::class.java -> SignUpFragment(entryPoint.authenticator())
+            ProfileFragment::class.java -> ProfileFragment()
+            UserFragment::class.java -> UserFragment()
+            SearchFragment::class.java -> SearchFragment()
+            
             else -> super.instantiate(classLoader, className)
         }
     }

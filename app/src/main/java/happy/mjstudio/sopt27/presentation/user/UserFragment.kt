@@ -1,4 +1,4 @@
-package happy.mjstudio.sopt27.presentation.settings
+package happy.mjstudio.sopt27.presentation.user
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,17 +7,17 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
-import happy.mjstudio.sopt27.databinding.FragmentSettingsBinding
+import happy.mjstudio.sopt27.databinding.FragmentUserBinding
 import happy.mjstudio.sopt27.utils.AutoClearedValue
 
 @AndroidEntryPoint
-class SettingsFragment : Fragment() {
+class UserFragment : Fragment() {
 
-    private var mBinding: FragmentSettingsBinding by AutoClearedValue()
-    private val viewModel by viewModels<SettingsViewModel>()
+    private var mBinding: FragmentUserBinding by AutoClearedValue()
+    private val viewModel by viewModels<UserViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
-        FragmentSettingsBinding.inflate(inflater, container, false).let {
+        FragmentUserBinding.inflate(inflater, container, false).let {
             mBinding = it
             it.root
         }
@@ -25,6 +25,12 @@ class SettingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         mBinding.lifecycleOwner = viewLifecycleOwner
         mBinding.vm = viewModel
+
+        configureList()
+    }
+
+    private fun configureList() = mBinding.list.run {
+        adapter = UserAdapter()
     }
 
 }

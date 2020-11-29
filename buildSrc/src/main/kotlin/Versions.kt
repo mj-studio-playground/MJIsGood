@@ -15,7 +15,5 @@ object Versions {
     const val glide = "4.11.0"
 
     const val coroutine = "1.4.0-M1"
-    const val hiltAndroid = "2.28-alpha"
-    const val hilt = "1.0.0-alpha02"
     const val javapoet = "1.13.0"
 }

@@ -11,7 +11,7 @@
 extern "C" {
 JNIEXPORT jstring
 JNICALL
-Java_happy_mjstudio_sopt27_utils_NativeLib_getConstant(JNIEnv *jEnv, jobject thiz, jstring
+Java_happy_mjstudio_sopt27_utils_NativeLibImpl_getConstant(JNIEnv *jEnv, jobject thiz, jstring
 key);
 }
 
