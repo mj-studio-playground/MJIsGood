@@ -14,12 +14,12 @@
   * [week #1](#assignment-1) 
   * [week #2](#assignment-2)
   * [week #3](#assignment-3)
-  * [week #4](#assignment-4)
+  * [week #6](#assignment-6)
 - [What to learn](#what-to-learn)
   * [week #1](#assignment-1-1)
   * [week #2](#assignment-2-1)
   * [week #3](#assignment-3-1)
-  * [week #4](#assignment-4-1)
+  * [week #6](#assignment-6-1)
 - [Checkout date](#checkout-date)
 - [Contributors](#contributors-)
 
@@ -30,6 +30,8 @@
 - LoremIpsum
 - Leakcanary
 - Kotlin Coroutine
+- Retrofit
+- FlowBinding
 
 #### Jetpack
 - DataBinding, ViewBinding
@@ -63,6 +65,12 @@
 
 #### Assignment #3
 - ViewPager2 (setPageTransform)
+
+#### Assignment #6
+- Retrofit with Coroutine
+- FlowBinding
+- SimpleDateFormat
+- OkHttpClient Interceptor
 
 ## What to learn
 
@@ -725,11 +733,97 @@ private fun configurePager() = mBinding.pager.run {
 }
 ```
 
+#### Assignment #6
+
+- Retrofit
+
+*RetrofitModule.kt*
+```kotlin
+@Module
+@InstallIn(ApplicationComponent::class)
+class RetrofitModule {
+    private val loggingInterceptor = HttpLoggingInterceptor(Logger.DEFAULT).apply {
+        this.level = HttpLoggingInterceptor.Level.BODY
+    }
+
+    private val baseClient = OkHttpClient.Builder().addInterceptor(loggingInterceptor).build()
+
+    @Provides
+    @Singleton
+    @Named(REQRES_QUALIFIER)
+    fun provideReqresRetrofit(nativeLib: NativeLib) =
+        Retrofit.Builder().baseUrl(nativeLib.reqresBaseUrl).client(baseClient)
+            .addConverterFactory(GsonConverterFactory.create()).build()
+
+    @Provides
+    @Singleton
+    @Named(KAKAO_QUALIFIER)
+    fun provideKakaoRetrofit(nativeLib: NativeLib): Retrofit {
+        val kakaoNetworkInterceptor = object : Interceptor {
+            override fun intercept(chain: Chain): Response {
+                logE(nativeLib.kakaoApiKey)
+                val req =
+                    chain.request().newBuilder().addHeader("Authorization", "KakaoAK " + nativeLib.kakaoApiKey).build()
+                return chain.proceed(req)
+            }
+        }
+
+        val kakaoClient = baseClient.newBuilder().addNetworkInterceptor(kakaoNetworkInterceptor).build()
+
+        return Retrofit.Builder().baseUrl(nativeLib.kakaoBaseUrl).client(kakaoClient)
+            .addConverterFactory(GsonConverterFactory.create()).build()
+    }
+
+    companion object {
+        const val REQRES_QUALIFIER = "Reqres"
+        const val KAKAO_QUALIFIER = "Kakao"
+    }
+}
+```
+
+- SimpleDateFormat
+
+*KakaoSearchAdapter.kt*
+```kotlin
+object KakaoSearchAdapter : ModelAdapter<KakaoSearchDTO, KakaoSearchEntity> {
+    private val timeZone = TimeZone.getTimeZone("Asia/Seoul")
+
+    private val formatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX", Locale.KOREA).apply {
+        timeZone = timeZone
+    }
+
+    override fun toEntity(source: KakaoSearchDTO): KakaoSearchEntity {
+
+        val cal = Calendar.getInstance(timeZone).apply {
+            time = formatter.parse(source.datetime) ?: Date()
+        }
+
+        return KakaoSearchEntity(source.contents, cal, source.title, source.url)
+    }
+
+    override fun toDTO(source: KakaoSearchEntity): KakaoSearchDTO {
+        return KakaoSearchDTO(source.contents, formatter.format(source.datetime.time), source.title, source.url)
+    }
+}
+```
+
+- FlowBinding
+
+*SearchFragment.kt*
+```kotlin
+private fun configureEditText() = mBinding.editText.run {
+    textChanges().debounce(1500L).onEach {
+        if (it.isNotEmpty()) viewModel.search(it.toString())
+    }.launchIn(lifecycleScope)
+}
+```
+
 ## Checkout date
 
 - assignment #1 2020.10.15
 - assignment #2 2020.10.19
 - assignment #3 2020.11.20
+- assignment #6 2020.11.29
 
 ## Contributors ✨
 
