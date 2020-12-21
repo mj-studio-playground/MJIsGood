@@ -48,6 +48,8 @@ android {
     compileOptions {
         sourceCompatibility = Constants.javaVersion
         targetCompatibility = Constants.javaVersion
+
+        isCoreLibraryDesugaringEnabled = true
     }
 
     testOptions {
@@ -78,6 +80,8 @@ android {
 }
 
 dependencies {
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.1")
+
     implementation("org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin}")
     implementation("androidx.core:core-ktx:${Versions.androidxCore}")
     implementation("androidx.appcompat:appcompat:${Versions.androidxAppCompat}")
